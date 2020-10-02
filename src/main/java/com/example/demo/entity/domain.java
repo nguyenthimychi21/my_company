@@ -1,8 +1,5 @@
 package com.example.demo.entity;
 
-
-
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
@@ -10,33 +7,26 @@ import java.util.Set;
 
 @Table(name = "domain")
 @Entity
-public class domain implements Serializable {
+public class Domain implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="domain_id")
-    private Long domainId;
+    @Column(name="id")
+    private Long id;
     @Column(name="name")
     private String name;
     @OneToMany(mappedBy = "domain", fetch = FetchType.LAZY,
-           cascade = CascadeType.ALL)
-    private Set<company> companies;
+            cascade = CascadeType.ALL)
+    private Set<Company> companies;
 
-    public domain(String name, Set<company> companies ) {
+    public Domain(String name, Set<Company> companies ) {
         this.name = name;
         this.companies = companies;
     }
 
-    public domain() {
+    public Domain() {
     }
 
 
-    public Long getDomainId() {
-        return domainId;
-    }
-
-    public void setDomainId(Long domainId) {
-        this.domainId = domainId;
-    }
 
     public String getName() {
         return name;
@@ -46,11 +36,20 @@ public class domain implements Serializable {
         this.name = name;
     }
 
-    public Set<company> getCompanies() {
-     return companies;
+    public Set<Company> getCompanies() {
+        return companies;
     }
 
-    public void setCompanies(Set<company> companies) {
+    public void setCompanies(Set<Company> companies) {
         this.companies = companies;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }
+

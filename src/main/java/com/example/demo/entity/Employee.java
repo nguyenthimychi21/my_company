@@ -1,21 +1,19 @@
 package com.example.demo.entity;
 
-
-
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
 
 @Entity
 @Table(name = "employees")
-public class employees {
+public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="employees_id")
-    private Long employeesId;
+    @Column(name="id")
+    private Long id;
 
     @ManyToOne
-    private department department;
+    private Department department;
     @Column(name="name")
     private String name;
     @Column(name="birthday")
@@ -26,9 +24,9 @@ public class employees {
     private int phone;
     @ManyToMany
     private
-    Set<project> projects;
+    Set<Project> projects;
 
-    public employees() {
+    public Employee() {
     }
 
 
@@ -41,27 +39,21 @@ public class employees {
 
 
 
-    public Set<project> getEmployeesProject() {
+    public Set<Project> getEmployeesProject() {
         return projects;
     }
 
-    public void setEmployeesProject(Set<project> employeesProject) {
+    public void setEmployeesProject(Set<Project> employeesProject) {
         this.projects = employeesProject;
     }
 
-    public Long getEmployeesId() {
-        return employeesId;
-    }
 
-    public void setEmployeesId(Long employeesId) {
-        this.employeesId = employeesId;
-    }
 
-    public department getDepartment() {
+    public Department getDepartment() {
         return department;
     }
 
-    public void setDepartment(department department) {
+    public void setDepartment(Department department) {
         this.department = department;
     }
 
@@ -97,11 +89,20 @@ public class employees {
         this.phone = phone;
     }
 
-    public Set<project> getProjects() {
+    public Set<Project> getProjects() {
         return projects;
     }
 
-    public void setProjects(Set<project> projects) {
+    public void setProjects(Set<Project> projects) {
         this.projects = projects;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }
+

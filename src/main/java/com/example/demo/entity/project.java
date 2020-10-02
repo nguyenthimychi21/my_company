@@ -5,10 +5,11 @@ import java.util.Set;
 
 @Entity
 @Table(name = "project")
-public class project {
+public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long projectId;
+    @Column(name = "project_id")
+    private Long id;
     @Column(name = "name")
     private String name;
     @Column(name = "status")
@@ -17,13 +18,13 @@ public class project {
     private String descriptions;
     @ManyToMany
     private
-    Set<employees> employees;
+    Set<Employee> employees;
     @ManyToMany(mappedBy = "projects")
     private
-    Set<employees> projects;
+    Set<Employee> projects;
 
 
-    public project(String name, String status, String descriptions, Set<com.example.demo.entity.employees> employees, Set<com.example.demo.entity.employees> projects) {
+    public Project(String name, String status, String descriptions, Set<Employee> employees, Set<Employee> projects) {
         this.name = name;
         this.status = status;
         this.descriptions = descriptions;
@@ -31,24 +32,17 @@ public class project {
         this.projects = projects;
     }
 
-    public project() {
+    public Project() {
     }
 
-    public Set<com.example.demo.entity.employees> getEmployees() {
+    public Set<Employee> getEmployees() {
         return employees;
     }
 
-    public void setEmployees(Set<com.example.demo.entity.employees> employees) {
+    public void setEmployees(Set<Employee> employees) {
         this.employees = employees;
     }
 
-    public Long getProjectId() {
-        return projectId;
-    }
-
-    public void setProjectId(Long projectId) {
-        this.projectId = projectId;
-    }
 
     public String getName() {
         return name;
@@ -74,11 +68,20 @@ public class project {
         this.descriptions = descriptions;
     }
 
-    public Set<com.example.demo.entity.employees> getProjects() {
+    public Set<Employee> getProjects() {
         return projects;
     }
 
-    public void setProjects(Set<com.example.demo.entity.employees> projects) {
+    public void setProjects(Set<Employee> projects) {
         this.projects = projects;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }
+

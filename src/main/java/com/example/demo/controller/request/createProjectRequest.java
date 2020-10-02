@@ -1,7 +1,7 @@
 package com.example.demo.controller.request;
 
-public class createProjectRequest {
-    private Long projectId;
+public class CreateProjectRequest {
+    //private Long projectId;
 
     private String name;
 
@@ -9,23 +9,16 @@ public class createProjectRequest {
 
     private String descriptions;
 
-    public createProjectRequest() {
+    public CreateProjectRequest() {
     }
 
-    public createProjectRequest(Long projectId, String name, String status, String descriptions) {
-        this.projectId = projectId;
+    public CreateProjectRequest(Long projectId, String name, String status, String descriptions) {
+
         this.name = name;
         this.status = status;
         this.descriptions = descriptions;
     }
 
-    public Long getProjectId() {
-        return projectId;
-    }
-
-    public void setProjectId(Long projectId) {
-        this.projectId = projectId;
-    }
 
     public String getName() {
         return name;

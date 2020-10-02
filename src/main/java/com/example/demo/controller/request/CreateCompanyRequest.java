@@ -1,40 +1,39 @@
 package com.example.demo.controller.request;
 
+
+import com.example.demo.entity.Domain;
+
 public class CreateCompanyRequest {
 
-    private Long companyId;
+    public CreateCompanyRequest(Domain domain) {
+        this.setDomain(domain);
+    }
 
-    private Long domainId;
+    private Domain domain;
+
+
 
     private String url;
 
     private int phone;
 
+
+    public CreateCompanyRequest( Long companyId, String url, int phone) {
+
+
+
+        this.setUrl(url);
+        this.setPhone(phone);
+    }
+
     public CreateCompanyRequest() {
     }
 
-    public CreateCompanyRequest(Long companyId, Long domainId, String url, int phone) {
-        this.companyId = companyId;
-        this.domainId = domainId;
-        this.url = url;
-        this.phone = phone;
-    }
 
-    public Long getCompanyId() {
-        return companyId;
-    }
 
-    public void setCompanyId(Long companyId) {
-        this.companyId = companyId;
-    }
 
-    public Long getDomainId() {
-        return domainId;
-    }
 
-    public void setDomainId(Long domainId) {
-        this.domainId = domainId;
-    }
+
 
     public String getUrl() {
         return url;
@@ -50,5 +49,13 @@ public class CreateCompanyRequest {
 
     public void setPhone(int phone) {
         this.phone = phone;
+    }
+
+    public Domain getDomain() {
+        return domain;
+    }
+
+    public void setDomain(Domain domain) {
+        this.domain = domain;
     }
 }

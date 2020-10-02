@@ -2,8 +2,9 @@ package com.example.demo.controller;
 
 import com.example.demo.controller.request.CreateDomainRequest;
 import com.example.demo.controller.request.UpdateDomainRequest;
-import com.example.demo.entity.domain;
-import com.example.demo.services.domainServices;
+import com.example.demo.entity.Domain;
+
+import com.example.demo.service.DomainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,14 +18,14 @@ import java.util.List;
 @RequestMapping("api/domain")
 public class DomainController {
     @Autowired
-    domainServices domainServices;
+    DomainService domainServices;
 
     @RequestMapping(method = RequestMethod.POST)
     public void createDomain(
             @RequestBody CreateDomainRequest domainRequest
     ) {
 
-        domain domain = new domain();
+        Domain domain = new Domain();
 
         domain.setName(domainRequest.getName());
         domainServices.saveDomain(domain);
@@ -35,16 +36,17 @@ public class DomainController {
     public void getAllDomain(
 
             ) {
-        List<domain> domains = domainServices.getAllDomain();
+        List<Domain> domains = domainServices.getAllDomain();
 
     }
+
     @RequestMapping(path ="/{id}",method = RequestMethod.PUT)
     public void updateDomain(
             @PathVariable Long id,
             @RequestBody UpdateDomainRequest domainRequest
 
     ){
-        domain domain = domainServices.getDomain(id);
+        Domain domain = domainServices.getDomain(id);
         domain.setName(domainRequest.getName());
 
         domainServices.saveDomain(domain);
@@ -55,7 +57,7 @@ public class DomainController {
             @PathVariable Long id
 
     ) {
-        domain domain = domainServices.getDomain(id);
+        Domain domain = domainServices.getDomain(id);
         domainServices.deleteDomain(domain);
 
     }

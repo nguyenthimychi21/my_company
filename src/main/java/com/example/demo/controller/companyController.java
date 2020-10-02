@@ -2,10 +2,12 @@ package com.example.demo.controller;
 
 
 import com.example.demo.controller.request.CreateCompanyRequest;
-import com.example.demo.entity.company;
-import com.example.demo.entity.domain;
-import com.example.demo.services.companyService;
-import com.example.demo.services.domainServices;
+import com.example.demo.controller.request.UpdateCompanyRequest;
+import com.example.demo.entity.Company;
+
+import com.example.demo.entity.Domain;
+import com.example.demo.service.CompanyService;
+import com.example.demo.service.DomainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,28 +19,45 @@ import java.util.List;
 
 @Controller
 @RequestMapping("api/company")
-public class companyController {
+public class CompanyController {
     @Autowired
-    domainServices domainServices;
+    DomainService domainServices;
     @Autowired
-    companyService companyService;
+    CompanyService companyService;
 
 
-    @RequestMapping(method = RequestMethod.POST)//error
-    public void createDomain(
+    @RequestMapping(method = RequestMethod.POST)
+    public void createCompany(
             @RequestBody CreateCompanyRequest companyRequest
     ) {
 
-        domain domain = domainServices.getDomain(companyRequest.getDomainId());
-       if(domain!=null) {
-           company company = new company();
-           company.setDomainId(companyRequest.getDomainId());
+
+           Company company =new Company();
            company.setUrl(companyRequest.getUrl());
            company.setPhone(companyRequest.getPhone());
            companyService.saveCompany(company);
 
-       }
+
     }
+
+@RequestMapping(path ="/{id}",method = RequestMethod.PUT)
+public void updateCompany(
+        @PathVariable Long id,
+        @RequestBody UpdateCompanyRequest companyRequest
+
+){
+
+        Company company=companyService.getCompany(id);
+        Domain domain =domainServices.getDomain(companyRequest.getDomainId());
+            if(domain !=null) {
+
+                company.setPhone(companyRequest.getPhone());
+                company.setUrl(companyRequest.getUrl());
+                companyService.saveCompany(company);
+            }
+
+}
+
 
 
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
@@ -46,7 +65,7 @@ public class companyController {
             @PathVariable Long id
 
     ) {
-        company company = companyService.getCompany(id);
+        Company company = companyService.getCompany(id);
         companyService.deleteCompany(company);
 
     }
@@ -55,7 +74,7 @@ public class companyController {
     public void getAllCompany(
 
     ) {
-        List<company> domains = companyService.getAllCompany();
+        List<Company> domains = companyService.getAllCompany();
 
     }
 }

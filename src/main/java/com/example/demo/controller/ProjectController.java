@@ -1,9 +1,10 @@
 package com.example.demo.controller;
 
 import com.example.demo.controller.request.UpdateProjectRequest;
-import com.example.demo.controller.request.createProjectRequest;
-import com.example.demo.entity.project;
-import com.example.demo.services.projectServices;
+import com.example.demo.controller.request.CreateProjectRequest;
+import com.example.demo.entity.Project;
+
+import com.example.demo.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,16 +12,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("api/project")
 public class ProjectController {
     @Autowired
-    projectServices projectService;
+    ProjectService projectService;
+
     @RequestMapping(method = RequestMethod.POST)
             public  void createProject(
-                    @RequestBody createProjectRequest projectRequest
+                    @RequestBody CreateProjectRequest projectRequest
     ){
-        project project =new project();
+        Project project =new Project();
         project.setName(projectRequest.getName());
         project.setStatus(projectRequest.getStatus());
         project.setDescriptions(projectRequest.getDescriptions());
@@ -32,7 +36,7 @@ public class ProjectController {
             @RequestBody UpdateProjectRequest projectRequest
 
     ){
-        project project = projectService.getProject(id);
+        Project project = projectService.getProject(id);
        project.setName(projectRequest.getName());
         project.setStatus(projectRequest.getStatus());
        project.setDescriptions(projectRequest.getDescriptions());
@@ -41,13 +45,22 @@ projectService.saveProject(project);
 
     }
 
+
+
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
     public void deleteProject(
             @PathVariable Long id
 
     ) {
-        project project = projectService.getProject(id);
+        Project project = projectService.getProject(id);
         projectService.deleteProject(project);
+
+    }
+    @RequestMapping(method = RequestMethod.GET)
+    public void getAllProject(
+
+    ) {
+        List<Project> projects = projectService.getAllProject();
 
     }
 }

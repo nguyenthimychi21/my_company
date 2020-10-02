@@ -5,13 +5,19 @@ import java.util.Set;
 
 @Entity
 @Table(name = "department")
-public class department {
+public class Department {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long departmentId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="id")
+    private Long id;
+
+
+
+
+
 
     @ManyToOne
-    private company company;
+    private Company company;
 
     @Column(name="name")
     private String name;
@@ -22,41 +28,35 @@ public class department {
 
     @OneToMany(mappedBy = "department", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
-    private Set<employees> employees;
+    private Set<Employee> employees;
 
-    public department(company company, String name, String descriptions, String email, Set<com.example.demo.entity.employees> employees) {
-        this.company = company;
-        this.name = name;
-        this.descriptions = descriptions;
-        this.email = email;
-        this.employees = employees;
-    }
 
-    public department() {
+
+    public Department() {
     }
 
 
-    public Set<com.example.demo.entity.employees> getEmployees() {
-        return employees;
+    public Department(Company company, String name, String descriptions, String email, Set<Employee> employees) {
+        this.setCompany(company);
+        this.setName(name);
+        this.setDescriptions(descriptions);
+        this.setEmail(email);
+        this.setEmployees(employees);
     }
 
-    public void setEmployees(Set<com.example.demo.entity.employees> employees) {
-        this.employees = employees;
+    public Long getId() {
+        return id;
     }
 
-    public Long getDepartmentId() {
-        return departmentId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setDepartmentId(Long departmentId) {
-        this.departmentId = departmentId;
-    }
-
-    public company getCompany() {
+    public Company getCompany() {
         return company;
     }
 
-    public void setCompany(company company) {
+    public void setCompany(Company company) {
         this.company = company;
     }
 
@@ -82,5 +82,13 @@ public class department {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Set<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(Set<Employee> employees) {
+        this.employees = employees;
     }
 }
