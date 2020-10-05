@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -31,7 +32,12 @@ public class DomainController {
     ) {
 
         Domain domain = new Domain();
+        Company company = new Company();
         domain.setName(domainRequest.getName());
+        company.setDomain(domain);
+        Set<Company> companies = new HashSet();
+        companies.add(company);
+        domain.setCompanies(companies);
         domainServices.saveDomain(domain);
     }
 
