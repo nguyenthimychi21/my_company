@@ -16,7 +16,7 @@ public class ProjectServiceImpl implements ProjectService {
 
 
     public Project saveProject(Project project) {
-        return  projectRepository.save(project);
+        return projectRepository.save(project);
     }
 
     public Project getProject(Long id) {
@@ -28,7 +28,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     public List<Project> getAllProject() {
-        return (List<Project>)projectRepository.findAll();
+        return (List<Project>) projectRepository.findAll();
     }
 
 

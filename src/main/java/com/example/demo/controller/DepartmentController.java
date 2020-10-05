@@ -24,47 +24,51 @@ public class DepartmentController {
     DepartmentService departmentService;
     @Autowired
     CompanyService companyService;
-    @RequestMapping(method = RequestMethod.POST)
-    public  void createDepartment(
+
+    @RequestMapping(method = RequestMethod.POST)//create department
+    public void createDepartment(
 
             @RequestBody CreateDepartmentRequest departmentRequest
-    ){
+    ) {
 
-           Department department = new Department();
+        Department department = new Department();
 
-           department.setName(departmentRequest.getName());
-           department.setEmail(departmentRequest.getEmail());
-           department.setDescriptions(departmentRequest.getDescriptions());
-           departmentService.saveDepartment(department);
+        department.setName(departmentRequest.getName());
+        department.setEmail(departmentRequest.getEmail());
+        department.setDescriptions(departmentRequest.getDescriptions());
+        departmentService.saveDepartment(department);
 
     }
-    @RequestMapping(path = "/{id}",method = RequestMethod.DELETE)
-    public void deleteDepartment( @PathVariable Long id){
+
+    @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)//delete department by id
+    public void deleteDepartment(@PathVariable Long id) {
         Department department = departmentService.getDepartment(id);
         departmentService.deleteDepartment(department);
 
     }
-@RequestMapping(method = RequestMethod.GET)
-    public  void  getAllDepartment(){
 
-    List<Department> departments=departmentService.getAllDepartment();
+    @RequestMapping(method = RequestMethod.GET)//get all department
+    public void getAllDepartment() {
+
+        List<Department> departments = departmentService.getAllDepartment();
 
     }
-    @RequestMapping(path = "/{id}",method = RequestMethod.PUT)
-    public  void updateDepartment(
+
+    @RequestMapping(path = "/{id}", method = RequestMethod.PUT)//update department by id
+    public void updateDepartment(
             @RequestBody UpdateDepartmentRequest departmentRequest,
             @PathVariable Long id
-    ){
-        Department department=departmentService.getDepartment(id);
-        Company company =companyService.getCompany(departmentRequest.getCompanyId());
-if(company !=null) {
+    ) {
+        Department department = departmentService.getDepartment(id);
+        Company company = companyService.getCompany(departmentRequest.getCompanyId());
+        if (company != null) {
 
 
-    department.setName(departmentRequest.getName());
-    department.setEmail(departmentRequest.getEmail());
-    department.setDescriptions(departmentRequest.getEmail());
-    departmentService.saveDepartment(department);
-}
+            department.setName(departmentRequest.getName());
+            department.setEmail(departmentRequest.getEmail());
+            department.setDescriptions(departmentRequest.getEmail());
+            departmentService.saveDepartment(department);
+        }
 
     }
 }

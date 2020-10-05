@@ -13,27 +13,22 @@ import java.util.List;
 public class CompanyServiceImpl implements CompanyService {
     @Autowired
     CompanyRepository companyRespository;
+
     public Company saveCompany(Company company) {
         return companyRespository.save(company);
     }
 
     public Company getCompany(Long id) {
-        return  companyRespository.findAllById(id);
+        return companyRespository.findAllById(id);
     }
 
-    /*
-        public Company getCompany(Long id) {
-            return companyRespository.findByCompanyId(id);
-        }
 
-
-     */
     public void deleteCompany(Company company) {
         companyRespository.delete(company);
     }
 
     public List<Company> getAllCompany() {
-        return(List<Company>) companyRespository.findAll();
+        return (List<Company>) companyRespository.findAll();
     }
 
 

@@ -6,6 +6,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface DomainRepository extends CrudRepository<Domain,Long> {
-    Domain findAllById(Long id);
+public interface DomainRepository extends CrudRepository<Domain, Long> {
+    Domain findAllById(Long id);//find all id of domain
 }

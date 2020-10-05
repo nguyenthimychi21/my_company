@@ -10,9 +10,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class DepartmentServiceImpl  implements DepartmentService {
+public class DepartmentServiceImpl implements DepartmentService {
     @Autowired
     DepartmentRepository departmentRepository;
+
     public Department saveDepartment(Department department) {
         return departmentRepository.save(department);
     }
@@ -20,7 +21,6 @@ public class DepartmentServiceImpl  implements DepartmentService {
     public Department getDepartment(Long id) {
         return departmentRepository.findAllById(id);
     }
-
 
     public void deleteDepartment(Department department) {
         departmentRepository.delete(department);

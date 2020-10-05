@@ -6,6 +6,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface DepartmentRepository extends CrudRepository<Department,Long> {
-    Department findAllById(Long id);
+public interface DepartmentRepository extends CrudRepository<Department, Long> {
+    Department findAllById(Long id);//find all id of department
 }

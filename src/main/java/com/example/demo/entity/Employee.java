@@ -9,18 +9,18 @@ import java.util.Set;
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name = "id")
     private Long id;
 
     @ManyToOne
     private Department department;
-    @Column(name="name")
+    @Column(name = "name")
     private String name;
-    @Column(name="birthday")
+    @Column(name = "birthday")
     private Date birthday;
-    @Column(name="gender")
+    @Column(name = "gender")
     private String gender;
-    @Column(name="phone")
+    @Column(name = "phone")
     private int phone;
     @ManyToMany
     private
@@ -37,8 +37,6 @@ public class Employee {
             inverseJoinColumns = @JoinColumn(name = "project_id"))
 
 
-
-
     public Set<Project> getEmployeesProject() {
         return projects;
     }
@@ -46,7 +44,6 @@ public class Employee {
     public void setEmployeesProject(Set<Project> employeesProject) {
         this.projects = employeesProject;
     }
-
 
 
     public Department getDepartment() {

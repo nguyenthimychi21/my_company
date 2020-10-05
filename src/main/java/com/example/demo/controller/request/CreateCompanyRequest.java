@@ -12,14 +12,12 @@ public class CreateCompanyRequest {
     private Domain domain;
 
 
-
     private String url;
 
     private int phone;
 
 
-    public CreateCompanyRequest( Long companyId, String url, int phone) {
-
+    public CreateCompanyRequest(Long companyId, String url, int phone) {
 
 
         this.setUrl(url);
@@ -28,11 +26,6 @@ public class CreateCompanyRequest {
 
     public CreateCompanyRequest() {
     }
-
-
-
-
-
 
 
     public String getUrl() {

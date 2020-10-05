@@ -7,7 +7,10 @@ import java.util.List;
 
 public interface DomainService {
     Domain saveDomain(Domain domain);
+
     List<Domain> getAllDomain();
+
     Domain getDomain(Long id);
+
     void deleteDomain(Domain domain);
 }

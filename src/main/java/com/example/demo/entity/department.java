@@ -8,28 +8,23 @@ import java.util.Set;
 public class Department {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="id")
+    @Column(name = "id")
     private Long id;
-
-
-
-
 
 
     @ManyToOne
     private Company company;
 
-    @Column(name="name")
+    @Column(name = "name")
     private String name;
-    @Column(name="descriptions")
+    @Column(name = "descriptions")
     private String descriptions;
-    @Column(name="email")
+    @Column(name = "email")
     private String email;
 
     @OneToMany(mappedBy = "department", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
     private Set<Employee> employees;
-
 
 
     public Department() {

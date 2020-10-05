@@ -21,7 +21,7 @@ public class DomainServiceImpl implements DomainService {
     }
 
     public List<Domain> getAllDomain() {
-        return (List<Domain>)domainRepository.findAll();
+        return (List<Domain>) domainRepository.findAll();
     }
 
     public Domain getDomain(Long id) {

@@ -8,8 +8,6 @@ public class UpdateDepartmentRequest {
     private Company company;
 
 
-
-
     private Long companyId;
 
     private String name;

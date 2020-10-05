@@ -7,7 +7,10 @@ import java.util.List;
 
 public interface ProjectService {
     Project saveProject(Project project);
+
     Project getProject(Long id);
-  void  deleteProject(Project project);
+
+    void deleteProject(Project project);
+
     List<Project> getAllProject();
 }

@@ -1,7 +1,6 @@
 package com.example.demo.entity;
 
 
-
 import javax.persistence.*;
 import java.util.Set;
 
@@ -10,12 +9,12 @@ import java.util.Set;
 public class Company {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="id")
+    @Column(name = "id")
     private Long id;
 
-    @Column(name="url")
+    @Column(name = "url")
     private String url;
-    @Column(name="phone")
+    @Column(name = "phone")
     private int phone;
 
     @ManyToOne
@@ -26,20 +25,16 @@ public class Company {
     private Set<Department> departments;
 
 
-
     public Company() {
     }
 
-    public Company( String url, int phone, Domain domain, Set<Department> departments) {
+    public Company(String url, int phone, Domain domain, Set<Department> departments) {
 
         this.setUrl(url);
         this.setPhone(phone);
         this.setDomain(domain);
         this.setDepartments(departments);
     }
-
-
-
 
 
     public String getUrl() {
