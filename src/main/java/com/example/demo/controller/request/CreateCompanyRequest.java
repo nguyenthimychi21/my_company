@@ -1,7 +1,10 @@
 package com.example.demo.controller.request;
 
 
+import com.example.demo.entity.Department;
 import com.example.demo.entity.Domain;
+
+import java.util.Set;
 
 public class CreateCompanyRequest {
 
@@ -11,6 +14,11 @@ public class CreateCompanyRequest {
 
     private Domain domain;
 
+    public CreateCompanyRequest(Set<Department> departments) {
+        this.setDepartments(departments);
+    }
+
+    private Set<Department> departments;
 
     private String url;
 
@@ -50,5 +58,13 @@ public class CreateCompanyRequest {
 
     public void setDomain(Domain domain) {
         this.domain = domain;
+    }
+
+    public Set<Department> getDepartments() {
+        return departments;
+    }
+
+    public void setDepartments(Set<Department> departments) {
+        this.departments = departments;
     }
 }

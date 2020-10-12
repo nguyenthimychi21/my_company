@@ -1,6 +1,7 @@
 package com.example.demo.entity;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -8,7 +9,7 @@ import java.util.Set;
 public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "project_id")
+    @Column(name = "id")
     private Long id;
     @Column(name = "name")
     private String name;
@@ -16,33 +17,27 @@ public class Project {
     private String status;
     @Column(name = "descriptions")
     private String descriptions;
-    @ManyToMany
+    @ManyToMany(mappedBy = "project")
     private
     Set<Employee> employees;
-    @ManyToMany(mappedBy = "projects")
-    private
-    Set<Employee> projects;
 
-
-    public Project(String name, String status, String descriptions, Set<Employee> employees, Set<Employee> projects) {
-        this.name = name;
-        this.status = status;
-        this.descriptions = descriptions;
-        this.employees = employees;
-        this.projects = projects;
+    public Project(String name, String status, String descriptions, Set<Employee> employees) {
+        this.setName(name);
+        this.setStatus(status);
+        this.setDescriptions(descriptions);
+        this.setEmployees(employees);
     }
 
     public Project() {
     }
 
-    public Set<Employee> getEmployees() {
-        return employees;
+    public Long getId() {
+        return id;
     }
 
-    public void setEmployees(Set<Employee> employees) {
-        this.employees = employees;
+    public void setId(Long id) {
+        this.id = id;
     }
-
 
     public String getName() {
         return name;
@@ -68,20 +63,12 @@ public class Project {
         this.descriptions = descriptions;
     }
 
-    public Set<Employee> getProjects() {
-        return projects;
+    public Set<Employee> getEmployees() {
+        return employees;
     }
 
-    public void setProjects(Set<Employee> projects) {
-        this.projects = projects;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public void setEmployees(Set<Employee> employees) {
+        this.employees = employees;
     }
 }
 

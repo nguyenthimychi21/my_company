@@ -2,6 +2,7 @@ package com.example.demo.entity;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -22,27 +23,23 @@ public class Employee {
     private String gender;
     @Column(name = "phone")
     private int phone;
-    @ManyToMany
-    private
-    Set<Project> projects;
+
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(
+            name = "Employee_Project",
+            joinColumns = {@JoinColumn(name = "employee_id")},
+            inverseJoinColumns = {@JoinColumn(name = "project_id")})
+    private Set<Project> project ;
 
     public Employee() {
     }
 
-
-    @ManyToMany
-    @JoinTable(
-            name = "employees_project",
-            joinColumns = @JoinColumn(name = "employees_id"),
-            inverseJoinColumns = @JoinColumn(name = "project_id"))
-
-
     public Set<Project> getEmployeesProject() {
-        return projects;
+        return project;
     }
 
     public void setEmployeesProject(Set<Project> employeesProject) {
-        this.projects = employeesProject;
+        this.project = employeesProject;
     }
 
 
@@ -87,11 +84,11 @@ public class Employee {
     }
 
     public Set<Project> getProjects() {
-        return projects;
+        return project;
     }
 
     public void setProjects(Set<Project> projects) {
-        this.projects = projects;
+        this.project = projects;
     }
 
     public Long getId() {

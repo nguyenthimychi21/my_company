@@ -7,15 +7,13 @@ import com.example.demo.entity.Employee;
 import com.example.demo.service.DepartmentService;
 import com.example.demo.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-@Controller
+@RestController
 @RequestMapping("api/employee")
 public class EmployeeController {
     @Autowired
@@ -23,35 +21,47 @@ public class EmployeeController {
     @Autowired
     DepartmentService departmentService;
 
-    @RequestMapping(method = RequestMethod.POST)//create employee
+    @PostMapping()//create employee
+
     public void createEmployee(
             @RequestBody CreateEmployeeRequest employeeRequest
     ) {
+        Department department = departmentService.getDepartment(employeeRequest.getDepartment().getId());
 
-        Employee employee = new Employee();
-        employee.setName(employeeRequest.getName());
-        employee.setBirthday(employeeRequest.getBirthday());
-        employee.setGender(employeeRequest.getGender());
-        employee.setPhone(employeeRequest.getPhone());
-        employeeService.saveEmployee(employee);
+        if (department != null) {
+            Employee employee = new Employee();
+            employee.setName(employeeRequest.getName());
+            employee.setBirthday(employeeRequest.getBirthday());
+            employee.setGender(employeeRequest.getGender());
+            employee.setPhone(employeeRequest.getPhone());
+            employee.setDepartment(department);
 
+
+            employeeService.saveEmployee(employee);
+        }
     }
 
 
-    @RequestMapping(path = "/{id}", method = RequestMethod.PUT)//update employee by id
+    @PutMapping(path = "/{id}")//update employee by id
+
     public void updateEmployee(
             @PathVariable Long id,
             @RequestBody UpdateEmployeeRequest employeeRequest
     ) {
+
         Employee employee = employeeService.getEmployee(id);
         employee.setName(employeeRequest.getName());
         employee.setBirthday(employeeRequest.getBirthday());
         employee.setGender(employeeRequest.getGender());
         employee.setPhone(employeeRequest.getPhone());
+        employee.setProjects(employeeRequest.getProjects());
+
         employeeService.saveEmployee(employee);
+
     }
 
-    @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)//delete employee by id
+    @DeleteMapping(path = "/{id}")//delete employee by id
+
     public void deleteEmployee(
             @PathVariable Long id
     ) {
@@ -59,8 +69,9 @@ public class EmployeeController {
         employeeService.deleteEmployee(employee);
     }
 
-    @RequestMapping(method = RequestMethod.GET)//get all employee by id
-    public void getAllEmployee() {
-        List<Employee> employees = employeeService.getAll();
+    @GetMapping()//get all employee by id
+
+    public List<Employee> getAllEmployee() {
+        return employeeService.getAll();
     }
 }

@@ -7,17 +7,15 @@ import com.example.demo.service.CompanyService;
 import com.example.demo.service.DepartmentService;
 import com.example.demo.controller.request.CreateDepartmentRequest;
 
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.Method;
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("api/department")
 public class DepartmentController {
     @Autowired
@@ -25,50 +23,53 @@ public class DepartmentController {
     @Autowired
     CompanyService companyService;
 
-    @RequestMapping(method = RequestMethod.POST)//create department
+    @PostMapping()//create department
+    @Test
     public void createDepartment(
 
             @RequestBody CreateDepartmentRequest departmentRequest
     ) {
-
-        Department department = new Department();
-
-        department.setName(departmentRequest.getName());
-        department.setEmail(departmentRequest.getEmail());
-        department.setDescriptions(departmentRequest.getDescriptions());
-        departmentService.saveDepartment(department);
-
+        Company company = companyService.getCompany(departmentRequest.getCompany().getId());
+        if (company != null) {
+            Department department = new Department();
+            department.setName(departmentRequest.getName());
+            department.setEmail(departmentRequest.getEmail());
+            department.setDescriptions(departmentRequest.getDescriptions());
+            department.setCompany(company);
+            departmentService.saveDepartment(department);
+        }
     }
 
-    @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)//delete department by id
+    @DeleteMapping(path = "/{id}")//delete department by id
+
     public void deleteDepartment(@PathVariable Long id) {
         Department department = departmentService.getDepartment(id);
         departmentService.deleteDepartment(department);
 
     }
 
-    @RequestMapping(method = RequestMethod.GET)//get all department
-    public void getAllDepartment() {
+    @GetMapping()//get all department
 
-        List<Department> departments = departmentService.getAllDepartment();
+    public List<Department> getAllDepartment() {
+
+        return departmentService.getAllDepartment();
 
     }
 
-    @RequestMapping(path = "/{id}", method = RequestMethod.PUT)//update department by id
+    @PutMapping(path = "/{id}")//update department by id
+
     public void updateDepartment(
             @RequestBody UpdateDepartmentRequest departmentRequest,
             @PathVariable Long id
     ) {
         Department department = departmentService.getDepartment(id);
-        Company company = companyService.getCompany(departmentRequest.getCompanyId());
-        if (company != null) {
 
 
-            department.setName(departmentRequest.getName());
-            department.setEmail(departmentRequest.getEmail());
-            department.setDescriptions(departmentRequest.getEmail());
-            departmentService.saveDepartment(department);
-        }
+        department.setName(departmentRequest.getName());
+        department.setEmail(departmentRequest.getEmail());
+        department.setDescriptions(departmentRequest.getEmail());
+        departmentService.saveDepartment(department);
+
 
     }
 }

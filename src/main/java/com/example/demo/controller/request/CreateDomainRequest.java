@@ -5,13 +5,13 @@ import com.example.demo.entity.Company;
 import java.util.Set;
 
 public class CreateDomainRequest {
-    public CreateDomainRequest(Long id, String name, Set<Company> companies) {
-        this.id = id;
+    public CreateDomainRequest( String name, Set<Company> companies) {
+
         this.name = name;
         this.companies = companies;
     }
 
-    private Long id;
+
 
     private String name;
 
@@ -20,13 +20,7 @@ public class CreateDomainRequest {
     public CreateDomainRequest() {
     }
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

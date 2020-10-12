@@ -6,32 +6,35 @@ import com.example.demo.entity.Project;
 
 import com.example.demo.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-@Controller
+@RestController
 @RequestMapping("api/project")
 public class ProjectController {
     @Autowired
     ProjectService projectService;
 
-    @RequestMapping(method = RequestMethod.POST)//create project
+    @PostMapping()//create project
+
     public void createProject(
             @RequestBody CreateProjectRequest projectRequest
     ) {
+
         Project project = new Project();
         project.setName(projectRequest.getName());
         project.setStatus(projectRequest.getStatus());
         project.setDescriptions(projectRequest.getDescriptions());
+
+
         projectService.saveProject(project);
     }
 
-    @RequestMapping(path = "/{id}", method = RequestMethod.PUT)//update project by id
+    @PutMapping(path = "/{id}")//update project by id
+
     public void updateDomain(
             @PathVariable Long id,
             @RequestBody UpdateProjectRequest projectRequest
@@ -41,13 +44,15 @@ public class ProjectController {
         project.setName(projectRequest.getName());
         project.setStatus(projectRequest.getStatus());
         project.setDescriptions(projectRequest.getDescriptions());
+
         projectService.saveProject(project);
 
 
     }
 
 
-    @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)//delete project by id
+    @DeleteMapping(path = "/{id}")//delete project by id
+
     public void deleteProject(
             @PathVariable Long id
 
@@ -57,11 +62,12 @@ public class ProjectController {
 
     }
 
-    @RequestMapping(method = RequestMethod.GET)//get all project
-    public void getAllProject(
+    @GetMapping()//get all project
+
+    public List<Project> getAllProject(
 
     ) {
-        List<Project> projects = projectService.getAllProject();
+        return projectService.getAllProject();
 
     }
 }

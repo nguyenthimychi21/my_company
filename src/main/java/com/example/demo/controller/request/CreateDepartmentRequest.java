@@ -1,6 +1,9 @@
 package com.example.demo.controller.request;
 
 import com.example.demo.entity.Company;
+import com.example.demo.entity.Employee;
+
+import java.util.Set;
 
 
 public class CreateDepartmentRequest {
@@ -21,6 +24,11 @@ public class CreateDepartmentRequest {
 
     private String email;
 
+    public CreateDepartmentRequest(Set<Employee> employees) {
+        this.employees = employees;
+    }
+
+    private Set<Employee> employees;
 
     public CreateDepartmentRequest() {
     }
@@ -79,5 +87,13 @@ public class CreateDepartmentRequest {
 
     public void setCompanyId(Long companyId) {
         this.companyId = companyId;
+    }
+
+    public Set<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(Set<Employee> employees) {
+        this.employees = employees;
     }
 }

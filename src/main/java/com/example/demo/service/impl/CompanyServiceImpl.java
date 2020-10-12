@@ -4,14 +4,17 @@ import com.example.demo.entity.Company;
 
 import com.example.demo.repository.CompanyRepository;
 import com.example.demo.service.CompanyService;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class CompanyServiceImpl implements CompanyService {
-    @Autowired
+
+   @Autowired
     CompanyRepository companyRespository;
 
     public Company saveCompany(Company company) {
@@ -28,7 +31,11 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     public List<Company> getAllCompany() {
-        return (List<Company>) companyRespository.findAll();
+        List<Company> companyList = new ArrayList<>();
+        Iterable<Company> companies =  companyRespository.findAll();
+        companies.forEach(item -> companyList.add(item));
+        return companyList;
+       // return (List<Company>) companyRespository.findAll();
     }
 
 

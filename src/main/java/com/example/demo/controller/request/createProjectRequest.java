@@ -1,5 +1,9 @@
 package com.example.demo.controller.request;
 
+import com.example.demo.entity.Employee;
+
+import java.util.Set;
+
 public class CreateProjectRequest {
     //private Long projectId;
 
@@ -9,6 +13,11 @@ public class CreateProjectRequest {
 
     private String descriptions;
 
+    public CreateProjectRequest(Set<Employee> employees) {
+        this.setEmployees(employees);
+    }
+
+    private Set<Employee> employees;
     public CreateProjectRequest() {
     }
 
@@ -42,5 +51,13 @@ public class CreateProjectRequest {
 
     public void setDescriptions(String descriptions) {
         this.descriptions = descriptions;
+    }
+
+    public Set<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(Set<Employee> employees) {
+        this.employees = employees;
     }
 }

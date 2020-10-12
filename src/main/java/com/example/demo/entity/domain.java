@@ -1,5 +1,8 @@
 package com.example.demo.entity;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
@@ -14,8 +17,11 @@ public class Domain implements Serializable {
     private Long id;
     @Column(name="name")
     private String name;
-    @OneToMany(mappedBy = "domain", fetch = FetchType.LAZY,
+
+    @OneToMany(mappedBy = "domain",fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
+    @Fetch(FetchMode.JOIN)
+
     private Set<Company> companies;
 
     public Domain(String name, Set<Company> companies ) {
@@ -25,7 +31,6 @@ public class Domain implements Serializable {
 
     public Domain() {
     }
-
 
 
     public String getName() {
