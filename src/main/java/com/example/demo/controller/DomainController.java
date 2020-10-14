@@ -1,19 +1,14 @@
 package com.example.demo.controller;
 
-import com.example.demo.controller.request.CreateDomainRequest;
 import com.example.demo.controller.request.UpdateDomainRequest;
-import com.example.demo.entity.Company;
+import com.example.demo.dto.DomainDto;
 import com.example.demo.entity.Domain;
-
 import com.example.demo.service.CompanyService;
 import com.example.demo.service.DomainService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping("api/domain")
@@ -22,6 +17,8 @@ public class DomainController {
     DomainService domainServices;
     @Autowired
     CompanyService companyService;
+
+
     private Object List;
     private Object Domain;
 
@@ -29,26 +26,28 @@ public class DomainController {
     @PostMapping()//create domain
 
     public void createDomain(
-            @RequestBody CreateDomainRequest domainRequest
+            //  @RequestBody CreateDomainRequest domainRequest
+            @RequestBody DomainDto domainDto
+
     ) {
 
 
         Domain domain = new Domain();
-
-        domain.setName(domainRequest.getName());
-
+        domain.setName(domainDto.getName());
         domainServices.saveDomain(domain);
     }
 
 
     @GetMapping() //get all domain
-    public List<Domain> getAllDomain(
+    @ResponseBody
+    public List<DomainDto> getAllDomain(
 
     ) {
 
         return domainServices.getAllDomain();
 
     }
+
 
     @PutMapping(path = "/{id}")//update domain by id
 
@@ -73,4 +72,6 @@ public class DomainController {
         domainServices.deleteDomain(domain);
 
     }
+
+
 }

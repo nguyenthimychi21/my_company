@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.controller.request.CreateEmployeeRequest;
 import com.example.demo.controller.request.UpdateEmployeeRequest;
+import com.example.demo.dto.EmployeeDto;
 import com.example.demo.entity.Department;
 import com.example.demo.entity.Employee;
 import com.example.demo.service.DepartmentService;
@@ -9,9 +10,7 @@ import com.example.demo.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping("api/employee")
@@ -54,7 +53,7 @@ public class EmployeeController {
         employee.setBirthday(employeeRequest.getBirthday());
         employee.setGender(employeeRequest.getGender());
         employee.setPhone(employeeRequest.getPhone());
-        employee.setProjects(employeeRequest.getProjects());
+        employee.setProject(employeeRequest.getProjects());
 
         employeeService.saveEmployee(employee);
 
@@ -71,7 +70,7 @@ public class EmployeeController {
 
     @GetMapping()//get all employee by id
 
-    public List<Employee> getAllEmployee() {
+    public List<EmployeeDto> getAllEmployee() {
         return employeeService.getAll();
     }
 }

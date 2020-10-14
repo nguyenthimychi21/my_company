@@ -57,7 +57,8 @@ public class ProjectServiceTest {
     }
 
     @Test
-    public void getAllProject() { projectRepository.findAll()
+    public void getAllProject() {
+        projectRepository.findAll()
         ;
     }
 }

@@ -3,20 +3,16 @@ package com.example.demo.controller;
 
 import com.example.demo.controller.request.CreateCompanyRequest;
 import com.example.demo.controller.request.UpdateCompanyRequest;
+import com.example.demo.dto.CompanyDto;
 import com.example.demo.entity.Company;
-
 import com.example.demo.entity.Domain;
 import com.example.demo.repository.DomainRepository;
 import com.example.demo.service.CompanyService;
 import com.example.demo.service.DomainService;
-import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping("api/company")
@@ -31,16 +27,16 @@ public class CompanyController {
     @PostMapping()//create company
 
     public void createCompany(
-            @RequestBody CreateCompanyRequest companyRequest
+            @RequestBody CreateCompanyRequest createCompanyRequest
     ) {
 
 
-        Domain domain = domainServices.getDomain(companyRequest.getDomain().getId());
+        Domain domain = domainServices.getDomain(createCompanyRequest.getDomain().getId());
+
         if (domain != null) {
             Company company = new Company();
-
-            company.setUrl(companyRequest.getUrl());
-            company.setPhone(companyRequest.getPhone());
+            company.setUrl(createCompanyRequest.getUrl());
+            company.setPhone(createCompanyRequest.getPhone());
             company.setDomain(domain);
             companyService.saveCompany(company);
 
@@ -57,8 +53,6 @@ public class CompanyController {
     ) {
 
         Company company = companyService.getCompany(id);
-
-
         company.setPhone(companyRequest.getPhone());
         company.setUrl(companyRequest.getUrl());
         companyService.saveCompany(company);
@@ -68,7 +62,7 @@ public class CompanyController {
 
 
     @DeleteMapping(path = "/{id}") //delete company by id
-    @Test
+
     public void deleteCompany(
             @PathVariable Long id
 
@@ -80,7 +74,7 @@ public class CompanyController {
 
     @GetMapping()// get all company
 
-    public List<Company> getAllCompany(
+    public List<CompanyDto> getAllCompany(
 
     ) {
         return companyService.getAllCompany();

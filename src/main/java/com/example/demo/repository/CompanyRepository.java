@@ -4,6 +4,6 @@ import com.example.demo.entity.Company;
 
 import org.springframework.data.repository.CrudRepository;
 
-public interface CompanyRepository extends CrudRepository<Company,Long> {
+public interface CompanyRepository extends CrudRepository<Company, Long> {
     Company findAllById(Long id);//find all id of company
 }

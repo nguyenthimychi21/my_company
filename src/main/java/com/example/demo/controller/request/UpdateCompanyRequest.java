@@ -1,5 +1,14 @@
 package com.example.demo.controller.request;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class UpdateCompanyRequest {
 
     private Long companyId;
@@ -10,45 +19,5 @@ public class UpdateCompanyRequest {
 
     private int phone;
 
-    public UpdateCompanyRequest() {
-    }
 
-    public UpdateCompanyRequest(Long companyId, Long domainId, String url, int phone) {
-        this.companyId = companyId;
-        this.domainId = domainId;
-        this.url = url;
-        this.phone = phone;
-    }
-
-    public Long getCompanyId() {
-        return companyId;
-    }
-
-    public void setCompanyId(Long companyId) {
-        this.companyId = companyId;
-    }
-
-    public Long getDomainId() {
-        return domainId;
-    }
-
-    public void setDomainId(Long domainId) {
-        this.domainId = domainId;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public int getPhone() {
-        return phone;
-    }
-
-    public void setPhone(int phone) {
-        this.phone = phone;
-    }
 }

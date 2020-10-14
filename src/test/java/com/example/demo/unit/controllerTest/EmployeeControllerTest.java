@@ -3,9 +3,9 @@ package com.example.demo.unit.controllerTest;
 import com.example.demo.controller.EmployeeController;
 import com.example.demo.controller.request.CreateDomainRequest;
 import com.example.demo.controller.request.CreateEmployeeRequest;
+import com.example.demo.dto.EmployeeDto;
 import com.example.demo.entity.Employee;
 import com.example.demo.service.EmployeeService;
-import com.example.demo.unit.controllerTest.ConverterUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -84,7 +84,7 @@ public class EmployeeControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
         )
                 .andDo(print());
-        List<Employee> employees = employeeService.getAll();
+        List<EmployeeDto> employees = employeeService.getAll();
     }
 
 }

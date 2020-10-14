@@ -1,4 +1,4 @@
-package com.example.demo.controller.request;
+package com.example.demo.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,14 +9,13 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UpdateProjectRequest {
+public class DepartmentDto {
 
-
+    private Long id;
+    private Long companyId;
     private String name;
-
-    private String status;
-
     private String descriptions;
+    private String email;
 
 
 }

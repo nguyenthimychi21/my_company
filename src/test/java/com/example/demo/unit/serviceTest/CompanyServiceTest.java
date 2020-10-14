@@ -37,24 +37,27 @@ public class CompanyServiceTest {
 
     @Before
     public void setUp() {
-       company = new Company();
+        company = new Company();
         Mockito.when(companyRepository.findAllById(company.getId())).thenReturn(company);
     }
-@Test
+
+    @Test
     public void saveCompany() {
         companyRepository.save(company);
     }
-@Test
-    public void getCompany(){
+
+    @Test
+    public void getCompany() {
         companyRepository.findAllById(id);
     }
 
-@Test
+    @Test
     public void deleteCompany() {
         companyRepository.delete(company);
     }
-@Test
+
+    @Test
     public void getAllCompany() {
-         companyRepository.findAll();
+        companyRepository.findAll();
     }
 }

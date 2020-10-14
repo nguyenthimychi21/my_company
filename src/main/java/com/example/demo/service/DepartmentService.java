@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.DepartmentDto;
 import com.example.demo.entity.Department;
 
 import java.util.List;
@@ -12,5 +13,5 @@ public interface DepartmentService {
 
     void deleteDepartment(Department department);
 
-    List<Department> getAllDepartment();
+    List<DepartmentDto> getAllDepartment();
 }

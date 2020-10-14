@@ -2,9 +2,9 @@ package com.example.demo.unit.controllerTest;
 
 import com.example.demo.controller.DepartmentController;
 import com.example.demo.controller.request.CreateDepartmentRequest;
+import com.example.demo.dto.DepartmentDto;
 import com.example.demo.entity.Department;
 import com.example.demo.service.DepartmentService;
-import com.example.demo.unit.controllerTest.ConverterUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -83,7 +83,7 @@ public class DepartmentControllerTest {
         )
                 .andDo(print());
 
-        List<Department> departments = departmentService.getAllDepartment();
+        List<DepartmentDto> departments = departmentService.getAllDepartment();
     }
 
     @Test

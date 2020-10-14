@@ -1,10 +1,8 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.entity.Project;
-
 import com.example.demo.repository.ProjectRepository;
 import com.example.demo.service.ProjectService;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +29,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     public List<Project> getAllProject() {
         List<Project> projectList = new ArrayList<>();
-        Iterable<Project> projects =  projectRepository.findAll();
+        Iterable<Project> projects = projectRepository.findAll();
         projects.forEach(item -> projectList.add(item));
         return projectList;
 

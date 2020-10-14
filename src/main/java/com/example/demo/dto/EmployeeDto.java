@@ -1,35 +1,25 @@
-package com.example.demo.controller.request;
+package com.example.demo.dto;
 
-import com.example.demo.entity.Department;
-import com.example.demo.entity.Project;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
-import java.util.Set;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UpdateEmployeeRequest {
+public class EmployeeDto {
+
     private Long id;
-
-
-    private Department department;
-
+    private Long departmentId;
     private String name;
-
     private Date birthday;
-
     private String gender;
-
     private int phone;
-
-    private
-    Set<Project> projects;
+    private Long projectId;
 
 
 }
-

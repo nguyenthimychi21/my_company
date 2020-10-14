@@ -38,7 +38,7 @@ public class DomainServiceTest {
     @Before
     public void setUp() {
         domain = new Domain();
-       // Mockito.when(domainRepository.findAllById(domain.getId())).thenReturn(domain);
+        // Mockito.when(domainRepository.findAllById(domain.getId())).thenReturn(domain);
     }
 
     @Test
