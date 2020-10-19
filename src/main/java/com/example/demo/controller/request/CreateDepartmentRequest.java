@@ -14,20 +14,15 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateDepartmentRequest {
-    private Long departmentId;
+
 
     private Company company;
-
-
-
-    private Long companyId;
 
     private String name;
 
     private String descriptions;
 
     private String email;
-
 
     private Set<Employee> employees;
 

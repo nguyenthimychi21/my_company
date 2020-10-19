@@ -9,15 +9,12 @@ import lombok.Setter;
 
 import java.util.Date;
 import java.util.Set;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateEmployeeRequest {
-
-
-    private Long id;
-
 
     private Department department;
 

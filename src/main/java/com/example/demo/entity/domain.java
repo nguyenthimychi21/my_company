@@ -24,11 +24,9 @@ public class Domain implements Serializable {
     private Long id;
     @Column(name = "name")
     private String name;
-
     @OneToMany(mappedBy = "domain", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
     @Fetch(FetchMode.JOIN)
-
     private Set<Company> companies;
 
 

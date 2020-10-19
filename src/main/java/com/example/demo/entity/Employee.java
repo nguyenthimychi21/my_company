@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -31,13 +32,12 @@ public class Employee {
     private String gender;
     @Column(name = "phone")
     private int phone;
-
     @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(
             name = "Employee_Project",
             joinColumns = {@JoinColumn(name = "employee_id")},
             inverseJoinColumns = {@JoinColumn(name = "project_id")})
-    private Set<Project> project;
+    private Set<Project> project = new HashSet<Project>();
 
 
 }

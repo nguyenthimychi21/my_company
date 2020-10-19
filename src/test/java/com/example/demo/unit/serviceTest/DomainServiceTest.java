@@ -7,7 +7,7 @@ import com.example.demo.service.impl.DomainServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -22,6 +22,8 @@ public class DomainServiceTest {
     DomainService domainService;
     @MockBean
     DomainRepository domainRepository;
+    @MockBean
+    ModelMapper modelMapper;
 
     @TestConfiguration
     static class BlockServiceImplTestConfiguration {

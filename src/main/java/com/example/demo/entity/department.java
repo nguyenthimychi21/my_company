@@ -19,11 +19,8 @@ public class Department {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Long id;
-
-
     @ManyToOne
     private Company company;
-
     @Column(name = "name")
     private String name;
     @Column(name = "descriptions")

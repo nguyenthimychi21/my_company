@@ -5,6 +5,7 @@ import com.example.demo.controller.request.UpdateEmployeeRequest;
 import com.example.demo.dto.EmployeeDto;
 import com.example.demo.entity.Department;
 import com.example.demo.entity.Employee;
+import com.example.demo.entity.Project;
 import com.example.demo.service.DepartmentService;
 import com.example.demo.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,16 +27,20 @@ public class EmployeeController {
             @RequestBody CreateEmployeeRequest employeeRequest
     ) {
         Department department = departmentService.getDepartment(employeeRequest.getDepartment().getId());
+        Project project = new Project();
 
         if (department != null) {
+
             Employee employee = new Employee();
             employee.setName(employeeRequest.getName());
             employee.setBirthday(employeeRequest.getBirthday());
             employee.setGender(employeeRequest.getGender());
             employee.setPhone(employeeRequest.getPhone());
             employee.setDepartment(department);
-
-
+            project.setName("project1");
+            project.setStatus("start");
+            project.setDescriptions("des1");
+            employee.getProject().add(project);
             employeeService.saveEmployee(employee);
         }
     }

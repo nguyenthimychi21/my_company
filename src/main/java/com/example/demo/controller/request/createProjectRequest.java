@@ -13,7 +13,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateProjectRequest {
-    //private Long projectId;
+
 
     private String name;
 

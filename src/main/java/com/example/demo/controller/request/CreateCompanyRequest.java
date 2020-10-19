@@ -9,28 +9,20 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Set;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateCompanyRequest {
 
-    public CreateCompanyRequest(Domain domain) {
-        this.setDomain(domain);
-    }
-
     private Domain domain;
-
-    public CreateCompanyRequest(Set<Department> departments) {
-        this.setDepartments(departments);
-    }
 
     private Set<Department> departments;
 
     private String url;
 
     private int phone;
-
 
 
 }

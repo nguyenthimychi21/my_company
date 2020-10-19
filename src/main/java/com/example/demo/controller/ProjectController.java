@@ -1,16 +1,14 @@
 package com.example.demo.controller;
 
-import com.example.demo.controller.request.UpdateProjectRequest;
 import com.example.demo.controller.request.CreateProjectRequest;
+import com.example.demo.controller.request.UpdateProjectRequest;
+import com.example.demo.entity.Employee;
 import com.example.demo.entity.Project;
-
 import com.example.demo.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping("api/project")
@@ -23,23 +21,24 @@ public class ProjectController {
     public void createProject(
             @RequestBody CreateProjectRequest projectRequest
     ) {
-
+        Employee employee = new Employee();
         Project project = new Project();
         project.setName(projectRequest.getName());
         project.setStatus(projectRequest.getStatus());
         project.setDescriptions(projectRequest.getDescriptions());
-
+        project.getEmployees().add(employee);
 
         projectService.saveProject(project);
     }
 
     @PutMapping(path = "/{id}")//update project by id
 
-    public void updateDomain(
+    public void updateProject(
             @PathVariable Long id,
             @RequestBody UpdateProjectRequest projectRequest
 
     ) {
+
         Project project = projectService.getProject(id);
         project.setName(projectRequest.getName());
         project.setStatus(projectRequest.getStatus());

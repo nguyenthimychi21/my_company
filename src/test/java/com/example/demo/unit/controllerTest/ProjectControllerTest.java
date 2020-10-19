@@ -1,12 +1,8 @@
 package com.example.demo.unit.controllerTest;
 
-import com.example.demo.controller.CompanyController;
-import com.example.demo.controller.EmployeeController;
 import com.example.demo.controller.ProjectController;
-import com.example.demo.controller.request.CreateDomainRequest;
 import com.example.demo.controller.request.CreateProjectRequest;
 import com.example.demo.entity.Project;
-import com.example.demo.service.EmployeeService;
 import com.example.demo.service.ProjectService;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,7 +17,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 

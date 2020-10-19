@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.controller.request.CreateDomainRequest;
 import com.example.demo.controller.request.UpdateDomainRequest;
 import com.example.demo.dto.DomainDto;
 import com.example.demo.entity.Domain;
@@ -26,14 +27,12 @@ public class DomainController {
     @PostMapping()//create domain
 
     public void createDomain(
-            //  @RequestBody CreateDomainRequest domainRequest
-            @RequestBody DomainDto domainDto
+            @RequestBody CreateDomainRequest domainRequest
 
     ) {
 
-
         Domain domain = new Domain();
-        domain.setName(domainDto.getName());
+        domain.setName(domainRequest.getName());
         domainServices.saveDomain(domain);
     }
 

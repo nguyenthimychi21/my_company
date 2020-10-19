@@ -35,6 +35,7 @@ public class CompanyControllerTest {
     CreateCompanyRequest createCompanyRequest;
     @MockBean(name = "companyService")
     private CompanyService companyService;
+
     private String body;
     @Autowired
     private WebApplicationContext webApplicationContext;
@@ -51,9 +52,9 @@ public class CompanyControllerTest {
 
         Company company = new Company();
         CreateCompanyRequest createCompanyRequest = new CreateCompanyRequest();
-        company.setDomain(createCompanyRequest.getDomain());
         company.setUrl(createCompanyRequest.getUrl());
         company.setPhone(createCompanyRequest.getPhone());
+
 
         body = ConverterUtils.convertObjectToJson(createCompanyRequest);
 
