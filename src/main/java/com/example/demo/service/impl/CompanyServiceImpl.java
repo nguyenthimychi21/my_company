@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,12 +25,45 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     public Company getCompany(Long id) {
-        return companyRespository.findAllById(id);
+        Optional<Company> companyResponse = companyRespository.findById(id);
+        Company company = companyResponse.get();
+        return company;
+        //return companyRespository.findAllById(id);
     }
 
 
     public void deleteCompany(Company company) {
         companyRespository.delete(company);
+    }
+
+    @Override
+    public List<CompanyDto> getPhone(int phone) {
+        List<Company> companyList = new ArrayList<>();
+        Iterable<Company> companies = companyRespository.findByPhone(phone);
+        companies.forEach(item -> companyList.add(item));
+        return companyList.stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<CompanyDto> getPhoneandUrl(int phone, String url) {
+        List<Company> companyList = new ArrayList<>();
+        Iterable<Company> companies = companyRespository.findByPhoneAndUrl(phone,url);
+        companies.forEach(item -> companyList.add(item));
+        return companyList.stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<CompanyDto> getAllByUrlLike(String keyWords) {
+        List<Company> companyList = new ArrayList<>();
+        Iterable<Company> companies = companyRespository.findByUrlLike('%'+keyWords+'%');
+        companies.forEach(item -> companyList.add(item));
+        return companyList.stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
     }
 
     public List<CompanyDto> getAllCompany() {

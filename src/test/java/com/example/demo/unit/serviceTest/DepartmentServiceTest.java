@@ -41,7 +41,8 @@ public class DepartmentServiceTest {
     @Before
     public void setUp() {
         department = new Department();
-        Mockito.when(departmentRepository.findAllById(department.getId())).thenReturn(department);
+        Mockito.when(departmentRepository.findById(
+                department.getId())).thenReturn(java.util.Optional.ofNullable(department));
     }
 
     @Test
@@ -51,7 +52,7 @@ public class DepartmentServiceTest {
 
     @Test
     public void getDepartment() {
-        departmentRepository.findAllById(id);
+        departmentRepository.findById(id);
     }
 
     @Test

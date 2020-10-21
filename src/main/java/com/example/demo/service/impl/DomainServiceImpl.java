@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -23,8 +24,7 @@ public class DomainServiceImpl implements DomainService {
 
     public Domain saveDomain(Domain domain) {
 
-        return domainRepository.save(domain)
-                ;
+        return domainRepository.save(domain);
     }
 
     public List<DomainDto> getAllDomain() {
@@ -45,7 +45,10 @@ public class DomainServiceImpl implements DomainService {
 
 
     public Domain getDomain(Long id) {
-        return domainRepository.findAllById(id);
+        Optional<Domain> domainResponse = domainRepository.findById(id);
+        Domain domain = domainResponse.get();
+        return domain;
+        // return domainRepository.findById(id);
 
     }
 

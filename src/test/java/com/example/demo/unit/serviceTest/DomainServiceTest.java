@@ -55,7 +55,7 @@ public class DomainServiceTest {
 
     @Test
     public void getDomain() {
-        domainRepository.findAllById(id);
+        domainRepository.findById(id);
     }
 
     @Test

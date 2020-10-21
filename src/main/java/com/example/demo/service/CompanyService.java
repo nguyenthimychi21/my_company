@@ -11,6 +11,8 @@ public interface CompanyService {
     Company getCompany(Long id);
 
     void deleteCompany(Company company);
-
+    List<CompanyDto> getPhone(int phone);
+    List<CompanyDto> getPhoneandUrl(int phone,String url);
+    List<CompanyDto> getAllByUrlLike(String keyWords);
     List<CompanyDto> getAllCompany();
 }

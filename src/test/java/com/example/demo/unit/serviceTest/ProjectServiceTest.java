@@ -38,7 +38,7 @@ public class ProjectServiceTest {
     @Before
     public void setUp() {
         project = new Project();
-        Mockito.when(projectRepository.findAllById(project.getId())).thenReturn(project);
+        Mockito.when(projectRepository.findById(project.getId())).thenReturn(java.util.Optional.ofNullable(project));
     }
 
     @Test
@@ -48,7 +48,7 @@ public class ProjectServiceTest {
 
     @Test
     public void getProject() {
-        projectRepository.findAllById(id);
+        projectRepository.findById(id);
     }
 
     @Test

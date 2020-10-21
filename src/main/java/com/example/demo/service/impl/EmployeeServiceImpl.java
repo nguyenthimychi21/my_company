@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,7 +26,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     public Employee getEmployee(Long id) {
-        return employeeRepository.findAllById(id);
+        Optional<Employee> employeeResponse = employeeRepository.findById(id);
+        Employee employee = employeeResponse.get();
+        return employee;
+        //return employeeRepository.findAllById(id);
     }
 
     public void deleteEmployee(Employee employee) {

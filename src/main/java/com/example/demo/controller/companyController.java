@@ -9,9 +9,13 @@ import com.example.demo.entity.Domain;
 import com.example.demo.repository.DomainRepository;
 import com.example.demo.service.CompanyService;
 import com.example.demo.service.DomainService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.List;
 
 @RestController
@@ -23,61 +27,160 @@ public class CompanyController {
     CompanyService companyService;
     @Autowired
     DomainRepository domainRepository;
+    @Autowired
+    ModelMapper modelMapper;
 
-    @PostMapping()//create company
+    //create company request
+    @PostMapping()
 
-    public void createCompany(
+    public ResponseEntity<String> createCompany(
             @RequestBody CreateCompanyRequest createCompanyRequest
-    ) {
+    ) throws Exception {
 
 
         Domain domain = domainServices.getDomain(createCompanyRequest.getDomain().getId());
-
-        if (domain != null) {
+        if (domain == null) {
+            throw new Exception("Error 404:Not Found");
+        }
+        {
             Company company = new Company();
             company.setUrl(createCompanyRequest.getUrl());
             company.setPhone(createCompanyRequest.getPhone());
             company.setDomain(domain);
             companyService.saveCompany(company);
+            return new ResponseEntity<String>("Create Company Success", HttpStatus.CREATED);
 
         }
 
     }
 
-    @PutMapping(path = "/{id}") //update company by id
 
-    public void updateCompany(
+    //create company dto
+    @PostMapping(path = "/{dto}")
+
+    public CompanyDto createCompanyDto(
+            @RequestBody CompanyDto companyDto
+    ) throws Exception {
+
+
+        Domain domain = domainServices.getDomain(companyDto.getDomainId());
+        if (domain == null) {
+            throw new Exception("Error 404:Not Found");
+        }
+        {
+            Company company = convertToEntity(companyDto);
+            Company companyCreated = companyService.saveCompany(company);
+            return convertToDto(companyCreated);
+
+        }
+
+    }
+
+    //convertToEntity
+    private Company convertToEntity(CompanyDto companyDto) throws ParseException {
+        Company company = modelMapper.map(companyDto, Company.class);
+
+
+        if (companyDto.getDomainId() != null) {
+            Company company1 = companyService.getCompany(companyDto.getDomainId());
+
+        }
+        return company;
+    }
+
+    //convertToDto
+    private CompanyDto convertToDto(Company company) {
+        CompanyDto companyDto = modelMapper.map(company, CompanyDto.class);
+        return companyDto;
+    }
+
+    //update company by id
+    @PutMapping(path = "/{id}")
+
+    public ResponseEntity<String> updateCompany(
             @PathVariable Long id,
             @RequestBody UpdateCompanyRequest companyRequest
 
-    ) {
+    ) throws Exception {
 
         Company company = companyService.getCompany(id);
+        if (company == null) {
+            throw new Exception("Error 404:Not Found");
+        }
         company.setPhone(companyRequest.getPhone());
         company.setUrl(companyRequest.getUrl());
         companyService.saveCompany(company);
+        return new ResponseEntity<String>("Update Department Success", HttpStatus.CREATED);
 
 
     }
 
+    //delete company by id
+    @DeleteMapping(path = "/{id}")
 
-    @DeleteMapping(path = "/{id}") //delete company by id
-
-    public void deleteCompany(
+    public ResponseEntity<String> deleteCompany(
             @PathVariable Long id
 
-    ) {
+    ) throws Exception {
         Company company = companyService.getCompany(id);
+        if (company == null) {
+            throw new Exception("Error 404:Not Found");
+        }
         companyService.deleteCompany(company);
+        return new ResponseEntity<String>("Delete Company Success", HttpStatus.OK);
+    }
+
+    //get company by id
+
+    @GetMapping(path = "/{id}")
+
+    public CompanyDto getCompany(
+            @PathVariable Long id
+    ) {
+
+        return convertToDto(companyService.getCompany(id));
 
     }
 
-    @GetMapping()// get all company
+    // get all company
+    @GetMapping()
 
     public List<CompanyDto> getAllCompany(
 
     ) {
         return companyService.getAllCompany();
 
+    }
+
+    //get  all phone
+    @GetMapping(path = "/search")
+    public List<CompanyDto> getAllPhone(
+            @RequestParam(value = "phone") int phone
+
+
+    ) {
+        return companyService.getPhone(phone);
+    }
+
+    //get  all phone and url
+    @GetMapping(path = "/search1")
+    public List<CompanyDto> getAllPhoneandUrl(
+            @RequestParam(value = "phone") int phone,
+            @RequestParam(value = "url") String url
+
+
+    ) {
+        return companyService.getPhoneandUrl(phone, url);
+    }
+
+    //get all by url
+    @GetMapping(path = "search_like")
+    public List<CompanyDto> getAllByUrlLike(
+
+            @RequestParam(value = "key_word") String keyWords
+
+
+    ) {
+        return companyService.getAllByUrlLike(keyWords);
     }
 }

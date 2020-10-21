@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,7 +25,10 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     public Department getDepartment(Long id) {
-        return departmentRepository.findAllById(id);
+        Optional<Department> departmentResponse = departmentRepository.findById(id);
+        Department department = departmentResponse.get();
+        return department;
+        //  return departmentRepository.findAllById(id);
     }
 
     public void deleteDepartment(Department department) {

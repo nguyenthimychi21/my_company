@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProjectServiceImpl implements ProjectService {
@@ -20,7 +21,10 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     public Project getProject(Long id) {
-        return projectRepository.findAllById(id);
+        Optional<Project> projectResponse = projectRepository.findById(id);
+        Project project = projectResponse.get();
+        return project;
+        // return projectRepository.findAllById(id);
     }
 
     public void deleteProject(Project project) {

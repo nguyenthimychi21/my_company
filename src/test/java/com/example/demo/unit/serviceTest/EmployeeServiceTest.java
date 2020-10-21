@@ -41,7 +41,7 @@ public class EmployeeServiceTest {
     @Before
     public void setUp() {
         employee = new Employee();
-        Mockito.when(employeeRepository.findAllById(employee.getId())).thenReturn(employee);
+        Mockito.when(employeeRepository.findById(employee.getId())).thenReturn(java.util.Optional.ofNullable(employee));
     }
 
     @Test
@@ -51,7 +51,7 @@ public class EmployeeServiceTest {
 
     @Test
     public void getEmployee() {
-        employeeRepository.findAllById(id);
+        employeeRepository.findById(id);
     }
 
     @Test

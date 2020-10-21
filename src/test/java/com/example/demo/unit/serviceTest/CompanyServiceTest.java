@@ -41,7 +41,7 @@ public class CompanyServiceTest {
     @Before
     public void setUp() {
         company = new Company();
-        Mockito.when(companyRepository.findAllById(company.getId())).thenReturn(company);
+        Mockito.when(companyRepository.findById(company.getId())).thenReturn(java.util.Optional.ofNullable(company));
     }
 
     @Test
@@ -51,7 +51,7 @@ public class CompanyServiceTest {
 
     @Test
     public void getCompany() {
-        companyRepository.findAllById(id);
+        companyRepository.findById(id);
     }
 
     @Test
