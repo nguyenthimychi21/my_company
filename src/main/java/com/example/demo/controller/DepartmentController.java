@@ -10,9 +10,12 @@ import com.example.demo.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.modelmapper.ModelMapper;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.text.ParseException;
 import java.util.List;
 
@@ -31,7 +34,7 @@ public class DepartmentController {
 
     public ResponseEntity<String> createDepartment(
 
-            @RequestBody CreateDepartmentRequest departmentRequest
+            @Validated @RequestBody CreateDepartmentRequest departmentRequest
     ) throws Exception {
         Company company = companyService.getCompany(departmentRequest.getCompany().getId());
         if (company == null) {
@@ -53,7 +56,7 @@ public class DepartmentController {
     @PostMapping(path = "/{dto}")
 
     public DepartmentDto createDepartment(
-            @RequestBody DepartmentDto departmentDto
+             @RequestBody DepartmentDto departmentDto
     ) throws Exception {
 
 
@@ -91,7 +94,9 @@ public class DepartmentController {
     //delete department by id
     @DeleteMapping(path = "/{id}")
 
-    public ResponseEntity<String> deleteDepartment(@PathVariable Long id) throws Exception {
+    public ResponseEntity<String> deleteDepartment(
+            @PathVariable @Min(value = 1, message = "id must be greater than or equal to 1")
+            @Max(value = 1000, message = "id must be lower than or equal to 1000") Long id) throws Exception {
         Department department = departmentService.getDepartment(id);
         if (department == null) {
             throw new Exception("Error 404:Not Found");
@@ -114,7 +119,8 @@ public class DepartmentController {
     @GetMapping(path = "/{id}")
 
     public DepartmentDto getDepartment(
-            @PathVariable Long id
+            @PathVariable @Min(value = 1, message = "id must be greater than or equal to 1")
+            @Max(value = 1000, message = "id must be lower than or equal to 1000") Long id
     ) {
         return convertToDto(departmentService.getDepartment(id));
 
@@ -123,8 +129,9 @@ public class DepartmentController {
     @PutMapping(path = "/{id}")//update department by id
 
     public ResponseEntity<String> updateDepartment(
-            @RequestBody UpdateDepartmentRequest departmentRequest,
-            @PathVariable Long id
+            @Validated @RequestBody UpdateDepartmentRequest departmentRequest,
+            @PathVariable @Min(value = 1, message = "id must be greater than or equal to 1")
+            @Max(value = 1000, message = "id must be lower than or equal to 1000") Long id
     ) throws Exception {
         Department department = departmentService.getDepartment(id);
         if (department == null) {

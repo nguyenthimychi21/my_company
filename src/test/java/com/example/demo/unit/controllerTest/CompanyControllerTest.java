@@ -15,6 +15,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -49,9 +50,12 @@ public class CompanyControllerTest {
     @Test
     public void createCompany() throws Exception {
 
-
-        Company company = new Company();
         CreateCompanyRequest createCompanyRequest = new CreateCompanyRequest();
+
+     //   createCompanyRequest.setPhone(098);
+        createCompanyRequest.setUrl("ggg");
+        Company company = new Company();
+
         company.setUrl(createCompanyRequest.getUrl());
         company.setPhone(createCompanyRequest.getPhone());
 
@@ -77,12 +81,15 @@ public class CompanyControllerTest {
     }
 
     @Test
-    public void deleteCompany() throws Exception {
-        mockMvc.perform(delete("/api/company")
-                .contentType(MediaType.APPLICATION_JSON)
-        )
+    public void delete() throws Exception {
+        this.mockMvc.perform(MockMvcRequestBuilders
+                .delete("/api/company/id")
+                .param("id", "1")
+                .contentType(MediaType.APPLICATION_JSON))
+
                 .andDo(print());
     }
+
 
     @Test
     public void getAllCompany() throws Exception {
@@ -92,5 +99,14 @@ public class CompanyControllerTest {
                 .andDo(print());
 
         List<CompanyDto> domains = companyService.getAllCompany();
+    }
+    @Test
+    public void getDomain() throws Exception {
+        mockMvc.perform(get("/api/company/id")
+                .contentType(MediaType.APPLICATION_JSON)
+        )
+                .andDo(print());
+
+
     }
 }

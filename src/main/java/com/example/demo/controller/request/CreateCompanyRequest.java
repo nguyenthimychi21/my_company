@@ -8,6 +8,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 @Getter
@@ -20,8 +23,11 @@ public class CreateCompanyRequest {
 
     private Set<Department> departments;
 
+    @NotEmpty
     private String url;
 
+    @Min(10)
+    @NotNull
     private int phone;
 
 

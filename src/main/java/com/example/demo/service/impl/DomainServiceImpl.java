@@ -53,6 +53,7 @@ public class DomainServiceImpl implements DomainService {
     }
 
 
+
     public void deleteDomain(Domain domain) {
         domainRepository.delete(domain);
     }

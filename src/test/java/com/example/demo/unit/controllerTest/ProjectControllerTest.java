@@ -2,6 +2,7 @@ package com.example.demo.unit.controllerTest;
 
 import com.example.demo.controller.ProjectController;
 import com.example.demo.controller.request.CreateProjectRequest;
+import com.example.demo.controller.request.UpdateProjectRequest;
 import com.example.demo.entity.Project;
 import com.example.demo.service.ProjectService;
 import org.junit.Before;
@@ -14,11 +15,11 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -45,8 +46,11 @@ public class ProjectControllerTest {
 
     @Test
     public void createProject() throws Exception {
-        Project project = new Project();
         CreateProjectRequest createProjectRequest = new CreateProjectRequest();
+        createProjectRequest.setName("abc");
+        createProjectRequest.setStatus("start");
+        createProjectRequest.setDescriptions("des1");
+        Project project = new Project();
         project.setName(createProjectRequest.getName());
         project.setStatus(createProjectRequest.getStatus());
         project.setDescriptions(createProjectRequest.getDescriptions());
@@ -55,20 +59,37 @@ public class ProjectControllerTest {
         mockMvc.perform(post("/api/project")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(body))
-                .andDo(print())
-                .andExpect(status().is2xxSuccessful());
+                .andDo(print());
+
         projectService.saveProject(project);
     }
 
+    //400
     @Test
-    public void updateDomain() throws Exception {
+    public void updateProject() throws Exception {
+        UpdateProjectRequest updateProjectRequest = new UpdateProjectRequest();
+        updateProjectRequest.setName("abcd");
+        updateProjectRequest.setStatus("start");
+        updateProjectRequest.setDescriptions("gg");
+        body = ConverterUtils.convertObjectToJson(updateProjectRequest);
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/project/id")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(body))
+                .andDo(print());
     }
+
 
     @Test
     public void deleteProject() throws Exception {
+        this.mockMvc.perform(MockMvcRequestBuilders
+                .delete("/api/project/id")
+                .param("id", "1")
+                .contentType(MediaType.APPLICATION_JSON))
 
+                .andDo(print());
 
     }
+
 
     @Test
     public void getAllProject() throws Exception {
@@ -78,4 +99,14 @@ public class ProjectControllerTest {
                 .andDo(print())
                 .andExpect(status().is2xxSuccessful());
     }
+
+    //400
+    @Test
+    public void getProject() throws Exception {
+        mockMvc.perform(get("/api/project/id")
+                .contentType(MediaType.APPLICATION_JSON)
+        )
+                .andDo(print());
+    }
+
 }

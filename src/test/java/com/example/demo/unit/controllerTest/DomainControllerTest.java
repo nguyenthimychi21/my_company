@@ -3,6 +3,7 @@ package com.example.demo.unit.controllerTest;
 
 import com.example.demo.controller.DomainController;
 import com.example.demo.controller.request.CreateDomainRequest;
+import com.example.demo.controller.request.UpdateDomainRequest;
 import com.example.demo.dto.DomainDto;
 import com.example.demo.entity.Domain;
 import com.example.demo.service.DomainService;
@@ -16,6 +17,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -50,19 +52,19 @@ public class DomainControllerTest {
 
     @Test
     public void createDomain() throws Exception {
-
-        Domain domain = new Domain();
-
         CreateDomainRequest createDomainRequest = new CreateDomainRequest();
+        createDomainRequest.setName("abc");
+        Domain domain = new Domain();
         domain.setName(createDomainRequest.getName());
         body = ConverterUtils.convertObjectToJson(createDomainRequest);
 
         mockMvc.perform(post("/api/domain")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(body))
-                .andDo(print())
-                .andExpect(status().is2xxSuccessful());
+                .andDo(print());
+
         domainService.saveDomain(domain);
+
     }
 
     @Test
@@ -81,15 +83,37 @@ public class DomainControllerTest {
     public void updateDomain() throws Exception {
 
 
+        UpdateDomainRequest updateDomainRequest = new UpdateDomainRequest();
+        Domain domain = domainService.getDomain(1l);
+        updateDomainRequest.setName("abdc");
+        body = ConverterUtils.convertObjectToJson(updateDomainRequest);
+        mockMvc.perform(put("/api/domain/id")
+                .param("id","1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(body))
+                .andDo(print());
     }
 
     @Test
-    public void deleteAddressBook() throws Exception {
+    public void getDomain() throws Exception {
 
-        mockMvc.perform(delete("/api/domain")
+        mockMvc.perform(get("/api/domain/id")
                 .contentType(MediaType.APPLICATION_JSON)
+                .param("id","1")
         )
                 .andDo(print());
+        Domain domain = domainService.getDomain(1L);
 
+    }
+
+    @Test
+    public void delete() throws Exception {
+
+        this.mockMvc.perform(MockMvcRequestBuilders
+                .delete("/api/domain/id")
+                .param("id", "1")
+                .contentType(MediaType.APPLICATION_JSON))
+
+                .andDo(print());
     }
 }

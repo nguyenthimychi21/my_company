@@ -8,8 +8,11 @@ import com.example.demo.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.util.List;
 
 @RestController
@@ -20,8 +23,8 @@ public class ProjectController {
 
     @PostMapping()//create project request
 
-    public void createProject(
-            @RequestBody CreateProjectRequest projectRequest
+    public ResponseEntity<String> createProject(
+            @Validated @RequestBody CreateProjectRequest projectRequest
     ) {
         Employee employee = new Employee();
         Project project = new Project();
@@ -31,13 +34,15 @@ public class ProjectController {
         project.getEmployees().add(employee);
 
         projectService.saveProject(project);
+        return new ResponseEntity<String>("Create Project Success", HttpStatus.CREATED);
     }
 
     @PutMapping(path = "/{id}")//update project by id
 
     public ResponseEntity<String> updateProject(
-            @PathVariable Long id,
-            @RequestBody UpdateProjectRequest projectRequest
+            @PathVariable @Min(value = 1, message = "id must be greater than or equal to 1")
+            @Max(value = 1000, message = "id must be lower than or equal to 1000") Long id,
+            @Validated @RequestBody UpdateProjectRequest projectRequest
 
     ) throws Exception {
 
@@ -50,7 +55,7 @@ public class ProjectController {
         project.setDescriptions(projectRequest.getDescriptions());
 
         projectService.saveProject(project);
-        return new ResponseEntity<String>("Create Project Success", HttpStatus.CREATED);
+        return new ResponseEntity<String>("update Project Success", HttpStatus.CREATED);
 
     }
 
@@ -58,7 +63,8 @@ public class ProjectController {
     @DeleteMapping(path = "/{id}")//delete project by id
 
     public ResponseEntity<String> deleteProject(
-            @PathVariable Long id
+            @PathVariable @Min(value = 1, message = "id must be greater than or equal to 1")
+            @Max(value = 1000, message = "id must be lower than or equal to 1000") Long id
 
     ) throws Exception {
         Project project = projectService.getProject(id);
@@ -83,7 +89,8 @@ public class ProjectController {
     @GetMapping(path = "/{id}")
 
     public Project getProject(
-            @PathVariable Long id
+            @PathVariable @Min(value = 1, message = "id must be greater than or equal to 1")
+            @Max(value = 1000, message = "id must be lower than or equal to 1000") Long id
     ) {
         return projectService.getProject(id);
 

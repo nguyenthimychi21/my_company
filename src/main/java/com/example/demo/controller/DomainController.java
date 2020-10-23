@@ -10,12 +10,16 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.text.ParseException;
 
 @RestController
 @RequestMapping("api/domain")
+
 public class DomainController {
     @Autowired
     DomainService domainServices;
@@ -31,7 +35,7 @@ public class DomainController {
     @PostMapping()
 
     public ResponseEntity<String> createDomain(
-            @RequestBody CreateDomainRequest domainRequest
+            @Validated @RequestBody CreateDomainRequest domainRequest
 
     ) {
 
@@ -45,7 +49,7 @@ public class DomainController {
     @PostMapping(path = "/{dto}")
 
     public DomainDto createCompanyDto(
-            @RequestBody DomainDto domainDto
+            @Validated @RequestBody DomainDto domainDto
     ) throws Exception {
 
 
@@ -76,18 +80,20 @@ public class DomainController {
     //get domain by id
     @GetMapping(path = "/{id}")
     public DomainDto getDomain(
-            @PathVariable Long id
-    ) {
+            @PathVariable @Min(value = 1, message = "id must be greater than or equal to 1")
+            @Max(value = 1000, message = "id must be lower than or equal to 1000") Long id) {
         return convertToDto(domainServices.getDomain(id));
 
     }
+
 
     //update domain by id
     @PutMapping(path = "/{id}")
 
     public ResponseEntity<String> updateDomain(
-            @PathVariable Long id,
-            @RequestBody UpdateDomainRequest domainRequest
+            @PathVariable @Min(value = 1, message = "id must be greater than or equal to 1")
+            @Max(value = 1000, message = "id must be lower than or equal to 1000") Long id,
+            @Validated @RequestBody UpdateDomainRequest domainRequest
 
     ) throws Exception {
         Domain domain = domainServices.getDomain(id);
@@ -103,8 +109,9 @@ public class DomainController {
     //delete domain by id
     @DeleteMapping(path = "/{id}")
 
-    public ResponseEntity<String> deleteAddressBook(
-            @PathVariable Long id
+    public ResponseEntity<String> deleteDomain(
+            @PathVariable @Min(value = 1, message = "id must be greater than or equal to 1")
+            @Max(value = 1000, message = "id must be lower than or equal to 1000") Long id
 
     ) throws Exception {
         Domain domain = domainServices.getDomain(id);

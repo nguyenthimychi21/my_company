@@ -12,8 +12,11 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.text.ParseException;
 import java.util.List;
 
@@ -31,7 +34,7 @@ public class EmployeeController {
     @PostMapping()
 
     public ResponseEntity<String> createEmployee(
-            @RequestBody CreateEmployeeRequest employeeRequest
+            @Validated @RequestBody CreateEmployeeRequest employeeRequest
     ) throws Exception {
         Department department = departmentService.getDepartment(employeeRequest.getDepartment().getId());
         Project project = new Project();
@@ -61,7 +64,7 @@ public class EmployeeController {
     @PostMapping(path = "/{dto}")
 
     public EmployeeDto createCompanyDto(
-            @RequestBody EmployeeDto employeeDto
+            @Validated @RequestBody EmployeeDto employeeDto
     ) throws Exception {
 
 
@@ -100,8 +103,9 @@ public class EmployeeController {
     @PutMapping(path = "/{id}")
 
     public ResponseEntity<String> updateEmployee(
-            @PathVariable Long id,
-            @RequestBody UpdateEmployeeRequest employeeRequest
+            @PathVariable @Min(value = 1, message = "id must be greater than or equal to 1")
+            @Max(value = 1000, message = "id must be lower than or equal to 1000") Long id,
+            @Validated @RequestBody UpdateEmployeeRequest employeeRequest
     ) throws Exception {
 
         Employee employee = employeeService.getEmployee(id);
@@ -123,7 +127,8 @@ public class EmployeeController {
     @DeleteMapping(path = "/{id}")
 
     public ResponseEntity<String> deleteEmployee(
-            @PathVariable Long id
+            @PathVariable @Min(value = 1, message = "id must be greater than or equal to 1")
+            @Max(value = 1000, message = "id must be lower than or equal to 1000") Long id
     ) throws Exception {
         Employee employee = employeeService.getEmployee(id);
         if (employee == null) {
@@ -145,7 +150,8 @@ public class EmployeeController {
     @GetMapping(path = "/{id}")
 
     public EmployeeDto getEmployee(
-            @PathVariable Long id
+            @PathVariable @Min(value = 1, message = "id must be greater than or equal to 1")
+            @Max(value = 1000, message = "id must be lower than or equal to 1000") Long id
     ) {
         return convertToDto(employeeService.getEmployee(id));
 

@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.NotEmpty;
 import java.util.Set;
 
 @Getter
@@ -14,13 +15,12 @@ import java.util.Set;
 @AllArgsConstructor
 public class CreateProjectRequest {
 
-
+    @NotEmpty
     private String name;
-
+    @NotEmpty
     private String status;
-
+    @NotEmpty
     private String descriptions;
-
     private Set<Employee> employees;
 
 

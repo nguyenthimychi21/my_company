@@ -13,8 +13,11 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.text.ParseException;
 import java.util.List;
 
@@ -34,7 +37,7 @@ public class CompanyController {
     @PostMapping()
 
     public ResponseEntity<String> createCompany(
-            @RequestBody CreateCompanyRequest createCompanyRequest
+            @Validated @RequestBody CreateCompanyRequest createCompanyRequest
     ) throws Exception {
 
 
@@ -57,24 +60,18 @@ public class CompanyController {
 
     //create company dto
     @PostMapping(path = "/{dto}")
-
     public CompanyDto createCompanyDto(
-            @RequestBody CompanyDto companyDto
-    ) throws Exception {
-
-
+         @RequestBody CompanyDto companyDto
+    ) throws ParseException {
         Domain domain = domainServices.getDomain(companyDto.getDomainId());
-        if (domain == null) {
-            throw new Exception("Error 404:Not Found");
-        }
+
         {
             Company company = convertToEntity(companyDto);
             Company companyCreated = companyService.saveCompany(company);
             return convertToDto(companyCreated);
-
         }
-
     }
+
 
     //convertToEntity
     private Company convertToEntity(CompanyDto companyDto) throws ParseException {
@@ -98,8 +95,9 @@ public class CompanyController {
     @PutMapping(path = "/{id}")
 
     public ResponseEntity<String> updateCompany(
-            @PathVariable Long id,
-            @RequestBody UpdateCompanyRequest companyRequest
+            @PathVariable @Min(value = 1, message = "id must be greater than or equal to 1")
+            @Max(value = 1000, message = "id must be lower than or equal to 1000") Long id,
+            @Validated @RequestBody UpdateCompanyRequest companyRequest
 
     ) throws Exception {
 
@@ -119,7 +117,8 @@ public class CompanyController {
     @DeleteMapping(path = "/{id}")
 
     public ResponseEntity<String> deleteCompany(
-            @PathVariable Long id
+            @PathVariable @Min(value = 1, message = "id must be greater than or equal to 1")
+            @Max(value = 1000, message = "id must be lower than or equal to 1000") Long id
 
     ) throws Exception {
         Company company = companyService.getCompany(id);
@@ -135,7 +134,8 @@ public class CompanyController {
     @GetMapping(path = "/{id}")
 
     public CompanyDto getCompany(
-            @PathVariable Long id
+            @PathVariable @Min(value = 1, message = "id must be greater than or equal to 1")
+            @Max(value = 1000, message = "id must be lower than or equal to 1000") Long id
     ) {
 
         return convertToDto(companyService.getCompany(id));

@@ -3,6 +3,7 @@ package com.example.demo.unit.controllerTest;
 import com.example.demo.controller.EmployeeController;
 import com.example.demo.controller.request.CreateDomainRequest;
 import com.example.demo.controller.request.CreateEmployeeRequest;
+import com.example.demo.controller.request.UpdateEmployeeRequest;
 import com.example.demo.dto.EmployeeDto;
 import com.example.demo.entity.Employee;
 import com.example.demo.service.EmployeeService;
@@ -16,6 +17,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -45,11 +47,17 @@ public class EmployeeControllerTest {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
 
+    //400
     @Test
     public void createEmployee() throws Exception {
 
-        Employee employee = new Employee();
         CreateEmployeeRequest createEmployeeRequest = new CreateEmployeeRequest();
+        createEmployeeRequest.setName("abc");
+        //createEmployeeRequest.setBirthday("12/12/1998");
+        createEmployeeRequest.setGender("nu");
+        createEmployeeRequest.setPhone(0346);
+        Employee employee = new Employee();
+
         employee.setName(createEmployeeRequest.getName());
         employee.setBirthday(createEmployeeRequest.getBirthday());
         employee.setGender(createEmployeeRequest.getGender());
@@ -64,17 +72,33 @@ public class EmployeeControllerTest {
         employeeService.saveEmployee(employee);
     }
 
+    //400
     @Test
-    public void updateEmployee() {
+    public void updateEmployee() throws Exception {
+
+        UpdateEmployeeRequest updateEmployeeRequest = new UpdateEmployeeRequest();
+
+        updateEmployeeRequest.setName("abc");
+        updateEmployeeRequest.setGender("nu");
+        updateEmployeeRequest.setPhone(69);
+      //updateEmployeeRequest.setBirthday(hhh);
+        body = ConverterUtils.convertObjectToJson(updateEmployeeRequest);
+        mockMvc.perform(put("/api/employee/id")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(body))
+                .andDo(print());
     }
+
 
     @Test
     public void deleteEmployee() throws Exception {
 
 
-        mockMvc.perform(delete("/api/employee")
-                .contentType(MediaType.APPLICATION_JSON)
-        )
+        this.mockMvc.perform(MockMvcRequestBuilders
+                .delete("/api/employee/id")
+                .param("id", "1")
+                .contentType(MediaType.APPLICATION_JSON))
+
                 .andDo(print());
     }
 
@@ -87,4 +111,14 @@ public class EmployeeControllerTest {
         List<EmployeeDto> employees = employeeService.getAll();
     }
 
+    //400
+    @Test
+    public void getEmployee() throws Exception {
+        mockMvc.perform(get("/api/employee/id")
+                .contentType(MediaType.APPLICATION_JSON)
+        )
+                .andDo(print());
+
+
+    }
 }

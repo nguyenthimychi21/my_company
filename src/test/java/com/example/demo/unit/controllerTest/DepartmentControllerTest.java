@@ -2,6 +2,7 @@ package com.example.demo.unit.controllerTest;
 
 import com.example.demo.controller.DepartmentController;
 import com.example.demo.controller.request.CreateDepartmentRequest;
+import com.example.demo.controller.request.UpdateDepartmentRequest;
 import com.example.demo.dto.DepartmentDto;
 import com.example.demo.entity.Department;
 import com.example.demo.service.DepartmentService;
@@ -15,6 +16,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -22,7 +24,6 @@ import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @AutoConfigureMockMvc
@@ -48,9 +49,12 @@ public class DepartmentControllerTest {
 
     @Test
     public void createDepartment() throws Exception {
-
-        Department department = new Department();
         CreateDepartmentRequest createDepartmentRequest = new CreateDepartmentRequest();
+        createDepartmentRequest.setName("abc");
+        createDepartmentRequest.setEmail("fff@gmail.com");
+        createDepartmentRequest.setDescriptions("des1");
+        Department department = new Department();
+
         department.setName(createDepartmentRequest.getName());
         department.setEmail(createDepartmentRequest.getEmail());
         department.setDescriptions(createDepartmentRequest.getDescriptions());
@@ -60,18 +64,20 @@ public class DepartmentControllerTest {
         mockMvc.perform(post("/api/department")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(body))
-                .andDo(print())
-                .andExpect(status().is2xxSuccessful());
+                .andDo(print());
 
 
         departmentService.saveDepartment(department);
     }
 
+
     @Test
     public void deleteDepartment() throws Exception {
-        mockMvc.perform(delete("/api/department")
-                .contentType(MediaType.APPLICATION_JSON)
-        )
+        this.mockMvc.perform(MockMvcRequestBuilders
+                .delete("/api/department/id")
+                .param("id", "1")
+                .contentType(MediaType.APPLICATION_JSON))
+
                 .andDo(print());
     }
 
@@ -86,9 +92,29 @@ public class DepartmentControllerTest {
         List<DepartmentDto> departments = departmentService.getAllDepartment();
     }
 
+
     @Test
     public void updateDepartment() throws Exception {
+        UpdateDepartmentRequest updateDepartmentRequest = new UpdateDepartmentRequest();
+        updateDepartmentRequest.setName("abc");
+        updateDepartmentRequest.setEmail("it@gmail.com");
+        updateDepartmentRequest.setDescriptions("dd");
+        body = ConverterUtils.convertObjectToJson(updateDepartmentRequest);
+        mockMvc.perform(put("/api/department/id")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(body))
+                .andDo(print());
     }
 
+    //400
+    @Test
+    public void getDepartment() throws Exception {
+        mockMvc.perform(get("/api/department/id")
+                .contentType(MediaType.APPLICATION_JSON)
+        )
+                .andDo(print());
+
+
+    }
 }
 
