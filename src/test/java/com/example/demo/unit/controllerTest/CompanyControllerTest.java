@@ -52,7 +52,7 @@ public class CompanyControllerTest {
 
         CreateCompanyRequest createCompanyRequest = new CreateCompanyRequest();
 
-     //   createCompanyRequest.setPhone(098);
+        //   createCompanyRequest.setPhone(098);
         createCompanyRequest.setUrl("ggg");
         Company company = new Company();
 
@@ -83,7 +83,7 @@ public class CompanyControllerTest {
     @Test
     public void delete() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders
-                .delete("/api/company/id")
+                .delete("/api/company/1")
                 .param("id", "1")
                 .contentType(MediaType.APPLICATION_JSON))
 
@@ -100,9 +100,10 @@ public class CompanyControllerTest {
 
         List<CompanyDto> domains = companyService.getAllCompany();
     }
+
     @Test
     public void getDomain() throws Exception {
-        mockMvc.perform(get("/api/company/id")
+        mockMvc.perform(get("/api/company/1")
                 .contentType(MediaType.APPLICATION_JSON)
         )
                 .andDo(print());

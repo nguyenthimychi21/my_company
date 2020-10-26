@@ -37,10 +37,12 @@ public class DomainServiceTest {
     Long id;
     List<String> list;
 
+
     @Before
     public void setUp() {
         domain = new Domain();
-        // Mockito.when(domainRepository.findAllById(domain.getId())).thenReturn(domain);
+
+
     }
 
     @Test
@@ -56,6 +58,7 @@ public class DomainServiceTest {
     @Test
     public void getDomain() {
         domainRepository.findById(id);
+
     }
 
     @Test
@@ -63,7 +66,6 @@ public class DomainServiceTest {
 
     public void saveDomain() {
 
-        domainRepository.save(domain)
-        ;
+        domainRepository.save(domain);
     }
 }

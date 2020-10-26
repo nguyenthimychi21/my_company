@@ -7,7 +7,6 @@ import com.example.demo.service.impl.ProjectServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -38,7 +37,7 @@ public class ProjectServiceTest {
     @Before
     public void setUp() {
         project = new Project();
-        Mockito.when(projectRepository.findById(project.getId())).thenReturn(java.util.Optional.ofNullable(project));
+        //Mockito.when(projectRepository.findById(project.getId())).thenReturn(java.util.Optional.ofNullable(project));
     }
 
     @Test

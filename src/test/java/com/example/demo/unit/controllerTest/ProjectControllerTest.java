@@ -72,7 +72,7 @@ public class ProjectControllerTest {
         updateProjectRequest.setStatus("start");
         updateProjectRequest.setDescriptions("gg");
         body = ConverterUtils.convertObjectToJson(updateProjectRequest);
-        mockMvc.perform(MockMvcRequestBuilders.put("/api/project/id")
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/project/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(body))
                 .andDo(print());
@@ -82,7 +82,7 @@ public class ProjectControllerTest {
     @Test
     public void deleteProject() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders
-                .delete("/api/project/id")
+                .delete("/api/project/1")
                 .param("id", "1")
                 .contentType(MediaType.APPLICATION_JSON))
 
@@ -103,7 +103,7 @@ public class ProjectControllerTest {
     //400
     @Test
     public void getProject() throws Exception {
-        mockMvc.perform(get("/api/project/id")
+        mockMvc.perform(get("/api/project/1")
                 .contentType(MediaType.APPLICATION_JSON)
         )
                 .andDo(print());

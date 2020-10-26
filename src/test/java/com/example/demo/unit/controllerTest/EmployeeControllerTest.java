@@ -81,9 +81,9 @@ public class EmployeeControllerTest {
         updateEmployeeRequest.setName("abc");
         updateEmployeeRequest.setGender("nu");
         updateEmployeeRequest.setPhone(69);
-      //updateEmployeeRequest.setBirthday(hhh);
+        //updateEmployeeRequest.setBirthday(hhh);
         body = ConverterUtils.convertObjectToJson(updateEmployeeRequest);
-        mockMvc.perform(put("/api/employee/id")
+        mockMvc.perform(put("/api/employee/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(body))
                 .andDo(print());
@@ -95,7 +95,7 @@ public class EmployeeControllerTest {
 
 
         this.mockMvc.perform(MockMvcRequestBuilders
-                .delete("/api/employee/id")
+                .delete("/api/employee/1")
                 .param("id", "1")
                 .contentType(MediaType.APPLICATION_JSON))
 
@@ -114,7 +114,7 @@ public class EmployeeControllerTest {
     //400
     @Test
     public void getEmployee() throws Exception {
-        mockMvc.perform(get("/api/employee/id")
+        mockMvc.perform(get("/api/employee/1")
                 .contentType(MediaType.APPLICATION_JSON)
         )
                 .andDo(print());

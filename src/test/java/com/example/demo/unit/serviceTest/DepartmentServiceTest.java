@@ -7,7 +7,6 @@ import com.example.demo.service.impl.DepartmentServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -41,8 +40,7 @@ public class DepartmentServiceTest {
     @Before
     public void setUp() {
         department = new Department();
-        Mockito.when(departmentRepository.findById(
-                department.getId())).thenReturn(java.util.Optional.ofNullable(department));
+
     }
 
     @Test

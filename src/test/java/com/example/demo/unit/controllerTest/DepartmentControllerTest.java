@@ -74,7 +74,7 @@ public class DepartmentControllerTest {
     @Test
     public void deleteDepartment() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders
-                .delete("/api/department/id")
+                .delete("/api/department/1")
                 .param("id", "1")
                 .contentType(MediaType.APPLICATION_JSON))
 
@@ -100,7 +100,7 @@ public class DepartmentControllerTest {
         updateDepartmentRequest.setEmail("it@gmail.com");
         updateDepartmentRequest.setDescriptions("dd");
         body = ConverterUtils.convertObjectToJson(updateDepartmentRequest);
-        mockMvc.perform(put("/api/department/id")
+        mockMvc.perform(put("/api/department/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(body))
                 .andDo(print());
@@ -109,7 +109,7 @@ public class DepartmentControllerTest {
     //400
     @Test
     public void getDepartment() throws Exception {
-        mockMvc.perform(get("/api/department/id")
+        mockMvc.perform(get("/api/department/1")
                 .contentType(MediaType.APPLICATION_JSON)
         )
                 .andDo(print());

@@ -51,6 +51,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+            <version>2.2.6.RELEASE</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.junit.vintage</groupId>
@@ -149,6 +150,20 @@
             <version>3.4.1</version>
             <scope>test</scope>
         </dependency>
+
+
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-dataformat-yaml</artifactId>
+            <version>{$version}</version>
+        </dependency>
+
     </dependencies>
 
     <build>

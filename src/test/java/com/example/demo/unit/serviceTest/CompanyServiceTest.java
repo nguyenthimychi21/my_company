@@ -7,7 +7,6 @@ import com.example.demo.service.impl.CompanyServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -41,7 +40,7 @@ public class CompanyServiceTest {
     @Before
     public void setUp() {
         company = new Company();
-        Mockito.when(companyRepository.findById(company.getId())).thenReturn(java.util.Optional.ofNullable(company));
+
     }
 
     @Test

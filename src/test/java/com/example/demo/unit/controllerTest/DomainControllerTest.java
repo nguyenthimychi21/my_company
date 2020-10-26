@@ -32,7 +32,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(DomainController.class)
 //@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = DemoApplication.class)
 public class DomainControllerTest {
-    @Autowired
+
+
     private MockMvc mockMvc;
     @MockBean
     DomainController domainController;
@@ -76,19 +77,21 @@ public class DomainControllerTest {
         )
                 .andDo(print())
                 .andExpect(status().is2xxSuccessful());
+
         List<DomainDto> domains = domainService.getAllDomain();
+
     }
 
     @Test
     public void updateDomain() throws Exception {
 
-
         UpdateDomainRequest updateDomainRequest = new UpdateDomainRequest();
         Domain domain = domainService.getDomain(1l);
         updateDomainRequest.setName("abdc");
         body = ConverterUtils.convertObjectToJson(updateDomainRequest);
-        mockMvc.perform(put("/api/domain/id")
-                .param("id","1")
+        mockMvc.perform(put("/api/domain/1")
+
+                .param("id", "1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(body))
                 .andDo(print());
@@ -97,9 +100,9 @@ public class DomainControllerTest {
     @Test
     public void getDomain() throws Exception {
 
-        mockMvc.perform(get("/api/domain/id")
+        mockMvc.perform(get("/api/domain/1")
                 .contentType(MediaType.APPLICATION_JSON)
-                .param("id","1")
+                .param("id", "1")
         )
                 .andDo(print());
         Domain domain = domainService.getDomain(1L);
@@ -110,7 +113,7 @@ public class DomainControllerTest {
     public void delete() throws Exception {
 
         this.mockMvc.perform(MockMvcRequestBuilders
-                .delete("/api/domain/id")
+                .delete("/api/domain/1")
                 .param("id", "1")
                 .contentType(MediaType.APPLICATION_JSON))
 
