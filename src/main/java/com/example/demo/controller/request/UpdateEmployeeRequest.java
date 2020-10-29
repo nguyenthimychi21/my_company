@@ -20,18 +20,22 @@ import java.util.Set;
 @AllArgsConstructor
 public class UpdateEmployeeRequest {
 
-
     private Department department;
+
     @NotEmpty
     private String name;
+
     @NotNull
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy")
     private Date birthday;
+
     @NotEmpty
     private String gender;
+
     @Min(10)
     @NotNull
     private int phone;
+
     private Set<Project> projects;
 
 

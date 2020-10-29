@@ -3,6 +3,7 @@ package com.example.demo.controller;
 
 import com.example.demo.controller.request.CreateCompanyRequest;
 import com.example.demo.controller.request.UpdateCompanyRequest;
+import com.example.demo.controller.untils.ConverterUtils;
 import com.example.demo.dto.CompanyDto;
 import com.example.demo.entity.Company;
 import com.example.demo.entity.Domain;
@@ -32,6 +33,7 @@ public class CompanyController {
     DomainRepository domainRepository;
     @Autowired
     ModelMapper modelMapper;
+    private ConverterUtils converterUtils;
 
     //create company request
     @PostMapping()
@@ -58,38 +60,18 @@ public class CompanyController {
     }
 
 
-    //create company dto
     @PostMapping(path = "/{dto}")
-    public CompanyDto createCompanyDto(
-         @RequestBody CompanyDto companyDto
-    ) throws ParseException {
+
+    public CompanyDto createCompanyDto(@Validated @RequestBody CompanyDto companyDto) throws ParseException {
         Domain domain = domainServices.getDomain(companyDto.getDomainId());
-
         {
-            Company company = convertToEntity(companyDto);
+            Company company = converterUtils.convertToEntity(companyDto);
             Company companyCreated = companyService.saveCompany(company);
-            return convertToDto(companyCreated);
+
+            return converterUtils.convertToDto(companyCreated);
         }
     }
 
-
-    //convertToEntity
-    private Company convertToEntity(CompanyDto companyDto) throws ParseException {
-        Company company = modelMapper.map(companyDto, Company.class);
-
-
-        if (companyDto.getDomainId() != null) {
-            Company company1 = companyService.getCompany(companyDto.getDomainId());
-
-        }
-        return company;
-    }
-
-    //convertToDto
-    private CompanyDto convertToDto(Company company) {
-        CompanyDto companyDto = modelMapper.map(company, CompanyDto.class);
-        return companyDto;
-    }
 
     //update company by id
     @PutMapping(path = "/{id}")
@@ -117,8 +99,8 @@ public class CompanyController {
     @DeleteMapping(path = "/{id}")
 
     public ResponseEntity<String> deleteCompany(
-            @PathVariable @Min(value = 1, message = "id must be greater than or equal to 1")
-            @Max(value = 1000, message = "id must be lower than or equal to 1000") Long id
+            @PathVariable @Min(value = 1)
+            @Max(value = 1000) Long id
 
     ) throws Exception {
         Company company = companyService.getCompany(id);
@@ -134,11 +116,10 @@ public class CompanyController {
     @GetMapping(path = "/{id}")
 
     public CompanyDto getCompany(
-            @PathVariable @Min(value = 1, message = "id must be greater than or equal to 1")
-            @Max(value = 1000, message = "id must be lower than or equal to 1000") Long id
+            @PathVariable @Min(value = 1)
+            @Max(value = 1000) Long id
     ) {
-
-        return convertToDto(companyService.getCompany(id));
+        return converterUtils.convertToDto(companyService.getCompany(id));
 
     }
 

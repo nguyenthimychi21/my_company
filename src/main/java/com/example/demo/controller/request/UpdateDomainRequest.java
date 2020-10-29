@@ -12,6 +12,7 @@ import javax.validation.constraints.NotEmpty;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UpdateDomainRequest {
+
     @NotEmpty
     private String name;
 

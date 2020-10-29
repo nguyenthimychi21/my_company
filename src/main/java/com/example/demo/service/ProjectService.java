@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.ProjectDto;
 import com.example.demo.entity.Project;
 
 
@@ -12,5 +13,5 @@ public interface ProjectService {
 
     void deleteProject(Project project);
 
-    List<Project> getAllProject();
+    List<ProjectDto> getAllProject();
 }

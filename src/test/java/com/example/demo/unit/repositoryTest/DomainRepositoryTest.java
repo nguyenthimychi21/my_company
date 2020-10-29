@@ -8,19 +8,20 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
+
 @RunWith(SpringRunner.class)
 @DataJpaTest
+
+
 public class DomainRepositoryTest {
-    @Autowired
-    private TestEntityManager entityManager;
 
     @Autowired
     private DomainRepository domainRepository;
+
     private Domain domain1;
     private Domain domain2;
 
@@ -34,9 +35,30 @@ public class DomainRepositoryTest {
     }
 
     @Test
-    public void findAll() {
+    public void testFindAllDomain() {
         List<Domain> domains = (List<Domain>) domainRepository.findAll();
         Assert.assertTrue(!domains.isEmpty());
     }
 
+    @Test
+    public void testDeleteDomainById() {
+        Domain domain6 = new Domain(41L, "van", null);
+        Domain domain3 = domainRepository.save(domain6);
+        domainRepository.deleteById(domain3.getId());
+    }
+
+    @Test
+    public void createDomain() {
+        Domain domain = new Domain(41L, "van", null);
+
+        domainRepository.save(domain);
+    }
+
+    @Test
+    public void testFindDomainById() {
+        Domain domain = new Domain(41L, "van", null);
+        domainRepository.findById(41L);
+        Assert.assertNotNull(domain);
+
+    }
 }

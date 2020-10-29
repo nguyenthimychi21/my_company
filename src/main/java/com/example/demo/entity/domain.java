@@ -8,6 +8,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.Set;
 
@@ -18,12 +19,16 @@ import java.util.Set;
 @Table(name = "domain")
 @Entity
 public class Domain implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Long id;
+
+    @NotEmpty
     @Column(name = "name")
     private String name;
+
     @OneToMany(mappedBy = "domain", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
     @Fetch(FetchMode.JOIN)

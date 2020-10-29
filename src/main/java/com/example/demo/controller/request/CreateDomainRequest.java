@@ -14,6 +14,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateDomainRequest {
+
     @NotEmpty
     private String name;
 

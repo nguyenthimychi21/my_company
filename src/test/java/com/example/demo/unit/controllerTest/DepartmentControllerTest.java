@@ -6,6 +6,7 @@ import com.example.demo.controller.request.UpdateDepartmentRequest;
 import com.example.demo.dto.DepartmentDto;
 import com.example.demo.entity.Department;
 import com.example.demo.service.DepartmentService;
+import com.example.demo.unit.controllerTest.untilsTest.ConverterUtilsTest;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -59,7 +60,7 @@ public class DepartmentControllerTest {
         department.setEmail(createDepartmentRequest.getEmail());
         department.setDescriptions(createDepartmentRequest.getDescriptions());
 
-        body = ConverterUtils.convertObjectToJson(createDepartmentRequest);
+        body = ConverterUtilsTest.convertObjectToJson(createDepartmentRequest);
 
         mockMvc.perform(post("/api/department")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -99,7 +100,7 @@ public class DepartmentControllerTest {
         updateDepartmentRequest.setName("abc");
         updateDepartmentRequest.setEmail("it@gmail.com");
         updateDepartmentRequest.setDescriptions("dd");
-        body = ConverterUtils.convertObjectToJson(updateDepartmentRequest);
+        body = ConverterUtilsTest.convertObjectToJson(updateDepartmentRequest);
         mockMvc.perform(put("/api/department/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(body))

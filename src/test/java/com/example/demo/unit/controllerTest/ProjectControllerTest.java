@@ -5,6 +5,7 @@ import com.example.demo.controller.request.CreateProjectRequest;
 import com.example.demo.controller.request.UpdateProjectRequest;
 import com.example.demo.entity.Project;
 import com.example.demo.service.ProjectService;
+import com.example.demo.unit.controllerTest.untilsTest.ConverterUtilsTest;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -54,7 +55,7 @@ public class ProjectControllerTest {
         project.setName(createProjectRequest.getName());
         project.setStatus(createProjectRequest.getStatus());
         project.setDescriptions(createProjectRequest.getDescriptions());
-        body = ConverterUtils.convertObjectToJson(createProjectRequest);
+        body = ConverterUtilsTest.convertObjectToJson(createProjectRequest);
 
         mockMvc.perform(post("/api/project")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -71,7 +72,7 @@ public class ProjectControllerTest {
         updateProjectRequest.setName("abcd");
         updateProjectRequest.setStatus("start");
         updateProjectRequest.setDescriptions("gg");
-        body = ConverterUtils.convertObjectToJson(updateProjectRequest);
+        body = ConverterUtilsTest.convertObjectToJson(updateProjectRequest);
         mockMvc.perform(MockMvcRequestBuilders.put("/api/project/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(body))

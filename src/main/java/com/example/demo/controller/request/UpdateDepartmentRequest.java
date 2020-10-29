@@ -18,13 +18,17 @@ import java.util.Set;
 public class UpdateDepartmentRequest {
 
     private Company company;
+
     @NotEmpty
     private String name;
+
     @NotEmpty
     private String descriptions;
+
     @NotEmpty
     @Email
     private String email;
+
     private Set<Employee> employees;
 
 

@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.controller.request.CreateDomainRequest;
 import com.example.demo.controller.request.UpdateDomainRequest;
+import com.example.demo.controller.untils.ConverterUtils;
 import com.example.demo.dto.DomainDto;
 import com.example.demo.entity.Domain;
 import com.example.demo.service.CompanyService;
@@ -15,7 +16,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
-import java.text.ParseException;
+
+//import org.springframework.beans.factory.annotation.Autowired;
 
 @RestController
 @RequestMapping("api/domain")
@@ -31,6 +33,8 @@ public class DomainController {
     private Object List;
     private Object Domain;
 
+    private ConverterUtils converterUtils;
+
     //create domain request
     @PostMapping()
 
@@ -45,44 +49,13 @@ public class DomainController {
         return new ResponseEntity<String>("Create Domain Success", HttpStatus.OK);
     }
 
-    //post domain dto
-    @PostMapping(path = "/{dto}")
-
-    public DomainDto createCompanyDto(
-            @Validated @RequestBody DomainDto domainDto
-    ) throws Exception {
-
-
-        Domain domain = convertToEntity(domainDto);
-        Domain domainCreate = domainServices.saveDomain(domain);
-        return convertToDto(domainCreate);
-
-    }
-
-    //convertToEntity
-    private Domain convertToEntity(DomainDto domainDto) throws ParseException {
-        Domain domain = modelMapper.map(domainDto, Domain.class);
-
-
-        if (domainDto.getId() != null) {
-            Domain company1 = domainServices.getDomain(domainDto.getId());
-
-        }
-        return domain;
-    }
-
-    //convertToDto
-    private DomainDto convertToDto(Domain domain) {
-        DomainDto companyDto = modelMapper.map(domain, DomainDto.class);
-        return companyDto;
-    }
 
     //get domain by id
     @GetMapping(path = "/{id}")
     public DomainDto getDomain(
-            @PathVariable @Min(value = 1, message = "id must be greater than or equal to 1")
-            @Max(value = 1000, message = "id must be lower than or equal to 1000") Long id) {
-        return convertToDto(domainServices.getDomain(id));
+            @PathVariable @Min(value = 1)
+            @Max(value = 1000) Long id) {
+        return converterUtils.convertDomainToDto(domainServices.getDomain(id));
 
     }
 
@@ -91,8 +64,8 @@ public class DomainController {
     @PutMapping(path = "/{id}")
 
     public ResponseEntity<String> updateDomain(
-            @PathVariable @Min(value = 1, message = "id must be greater than or equal to 1")
-            @Max(value = 1000, message = "id must be lower than or equal to 1000") Long id,
+            @PathVariable @Min(value = 1)
+            @Max(value = 1000) Long id,
             @Validated @RequestBody UpdateDomainRequest domainRequest
 
     ) throws Exception {
@@ -110,8 +83,8 @@ public class DomainController {
     @DeleteMapping(path = "/{id}")
 
     public ResponseEntity<String> deleteDomain(
-            @PathVariable @Min(value = 1, message = "id must be greater than or equal to 1")
-            @Max(value = 1000, message = "id must be lower than or equal to 1000") Long id
+            @PathVariable @Min(value = 1)
+            @Max(value = 1000) Long id
 
     ) throws Exception {
         Domain domain = domainServices.getDomain(id);

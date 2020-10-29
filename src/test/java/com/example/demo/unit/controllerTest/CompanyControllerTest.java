@@ -5,6 +5,7 @@ import com.example.demo.controller.request.CreateCompanyRequest;
 import com.example.demo.dto.CompanyDto;
 import com.example.demo.entity.Company;
 import com.example.demo.service.CompanyService;
+import com.example.demo.unit.controllerTest.untilsTest.ConverterUtilsTest;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -60,7 +61,7 @@ public class CompanyControllerTest {
         company.setPhone(createCompanyRequest.getPhone());
 
 
-        body = ConverterUtils.convertObjectToJson(createCompanyRequest);
+        body = ConverterUtilsTest.convertObjectToJson(createCompanyRequest);
 
         mockMvc.perform(post("/api/company")
                 .contentType(MediaType.APPLICATION_JSON)

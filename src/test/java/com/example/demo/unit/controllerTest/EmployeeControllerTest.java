@@ -7,6 +7,7 @@ import com.example.demo.controller.request.UpdateEmployeeRequest;
 import com.example.demo.dto.EmployeeDto;
 import com.example.demo.entity.Employee;
 import com.example.demo.service.EmployeeService;
+import com.example.demo.unit.controllerTest.untilsTest.ConverterUtilsTest;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -62,7 +63,7 @@ public class EmployeeControllerTest {
         employee.setBirthday(createEmployeeRequest.getBirthday());
         employee.setGender(createEmployeeRequest.getGender());
         employee.setPhone(createEmployeeRequest.getPhone());
-        body = ConverterUtils.convertObjectToJson(createEmployeeRequest);
+        body = ConverterUtilsTest.convertObjectToJson(createEmployeeRequest);
 
         mockMvc.perform(post("/api/employee")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -82,7 +83,7 @@ public class EmployeeControllerTest {
         updateEmployeeRequest.setGender("nu");
         updateEmployeeRequest.setPhone(69);
         //updateEmployeeRequest.setBirthday(hhh);
-        body = ConverterUtils.convertObjectToJson(updateEmployeeRequest);
+        body = ConverterUtilsTest.convertObjectToJson(updateEmployeeRequest);
         mockMvc.perform(put("/api/employee/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(body))

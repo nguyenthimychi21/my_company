@@ -7,6 +7,7 @@ import com.example.demo.controller.request.UpdateDomainRequest;
 import com.example.demo.dto.DomainDto;
 import com.example.demo.entity.Domain;
 import com.example.demo.service.DomainService;
+import com.example.demo.unit.controllerTest.untilsTest.ConverterUtilsTest;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -57,7 +58,7 @@ public class DomainControllerTest {
         createDomainRequest.setName("abc");
         Domain domain = new Domain();
         domain.setName(createDomainRequest.getName());
-        body = ConverterUtils.convertObjectToJson(createDomainRequest);
+        body = ConverterUtilsTest.convertObjectToJson(createDomainRequest);
 
         mockMvc.perform(post("/api/domain")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -88,7 +89,7 @@ public class DomainControllerTest {
         UpdateDomainRequest updateDomainRequest = new UpdateDomainRequest();
         Domain domain = domainService.getDomain(1l);
         updateDomainRequest.setName("abdc");
-        body = ConverterUtils.convertObjectToJson(updateDomainRequest);
+        body = ConverterUtilsTest.convertObjectToJson(updateDomainRequest);
         mockMvc.perform(put("/api/domain/1")
 
                 .param("id", "1")

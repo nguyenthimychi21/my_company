@@ -1,12 +1,14 @@
 package com.example.demo.dto;
 
-import com.sun.istack.NotNull;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Getter
@@ -14,22 +16,28 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EmployeeDto {
-    @NotNull
+
     private Long id;
-    @NotEmpty(message = "departmentId must not be empty")
+
+
     private Long departmentId;
-    @NotEmpty(message = "name must not be empty")
+
+    @NotEmpty
     private String name;
-    @NotEmpty(message = "birthday must not be empty")
+
+    @NotNull
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy")
     private Date birthday;
-    @NotEmpty(message = "gender must not be empty")
+
+    @NotEmpty
     private String gender;
-    @NotEmpty(message = "phone must not be empty")
+
+    @Min(10)
+    @NotNull
     private int phone;
-    @NotEmpty(message = "projectId must not be empty")
-    private Long projectId;
 
 
-    public void setBirthday(Date s) {
-    }
+    //  private Long projectId;
+
+
 }

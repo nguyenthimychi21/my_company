@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.controller.request.CreateEmployeeRequest;
 import com.example.demo.controller.request.UpdateEmployeeRequest;
+import com.example.demo.controller.untils.ConverterUtils;
 import com.example.demo.dto.EmployeeDto;
 import com.example.demo.entity.Department;
 import com.example.demo.entity.Employee;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
-import java.text.ParseException;
 import java.util.List;
 
 @RestController
@@ -29,6 +29,7 @@ public class EmployeeController {
     DepartmentService departmentService;
     @Autowired
     ModelMapper modelMapper;
+    private ConverterUtils converterUtils;
 
     //create employee request
     @PostMapping()
@@ -64,7 +65,7 @@ public class EmployeeController {
     @PostMapping(path = "/{dto}")
 
     public EmployeeDto createCompanyDto(
-            @Validated @RequestBody EmployeeDto employeeDto
+           @Validated @RequestBody EmployeeDto employeeDto
     ) throws Exception {
 
 
@@ -73,38 +74,21 @@ public class EmployeeController {
             throw new Exception("Error 404:Not Found");
         }
         {
-            Employee employee = convertToEntity(employeeDto);
+            Employee employee = converterUtils.convertEmployeeToEntity(employeeDto);
             Employee employeeCreated = employeeService.saveEmployee(employee);
-            return convertToDto(employeeCreated);
+            return converterUtils.convertEmployeeToDto(employeeCreated);
 
         }
 
     }
 
-    //convertToEntity
-    private Employee convertToEntity(EmployeeDto employeeDto) throws ParseException {
-        Employee employee = modelMapper.map(employeeDto, Employee.class);
-
-
-        if (employeeDto.getDepartmentId() != null) {
-            Employee employee1 = employeeService.getEmployee(employeeDto.getDepartmentId());
-
-        }
-        return employee;
-    }
-
-    //convertToDto
-    private EmployeeDto convertToDto(Employee employee) {
-        EmployeeDto employeeDto = modelMapper.map(employee, EmployeeDto.class);
-        return employeeDto;
-    }
 
     //update employee by id
     @PutMapping(path = "/{id}")
 
     public ResponseEntity<String> updateEmployee(
-            @PathVariable @Min(value = 1, message = "id must be greater than or equal to 1")
-            @Max(value = 1000, message = "id must be lower than or equal to 1000") Long id,
+            @PathVariable @Min(value = 1)
+            @Max(value = 1000) Long id,
             @Validated @RequestBody UpdateEmployeeRequest employeeRequest
     ) throws Exception {
 
@@ -127,8 +111,8 @@ public class EmployeeController {
     @DeleteMapping(path = "/{id}")
 
     public ResponseEntity<String> deleteEmployee(
-            @PathVariable @Min(value = 1, message = "id must be greater than or equal to 1")
-            @Max(value = 1000, message = "id must be lower than or equal to 1000") Long id
+            @PathVariable @Min(value = 1)
+            @Max(value = 1000) Long id
     ) throws Exception {
         Employee employee = employeeService.getEmployee(id);
         if (employee == null) {
@@ -150,10 +134,10 @@ public class EmployeeController {
     @GetMapping(path = "/{id}")
 
     public EmployeeDto getEmployee(
-            @PathVariable @Min(value = 1, message = "id must be greater than or equal to 1")
-            @Max(value = 1000, message = "id must be lower than or equal to 1000") Long id
+            @PathVariable @Min(value = 1)
+            @Max(value = 1000) Long id
     ) {
-        return convertToDto(employeeService.getEmployee(id));
+        return converterUtils.convertEmployeeToDto(employeeService.getEmployee(id));
 
     }
 

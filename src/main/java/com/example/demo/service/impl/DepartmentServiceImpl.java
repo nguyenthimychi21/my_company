@@ -28,7 +28,7 @@ public class DepartmentServiceImpl implements DepartmentService {
         Optional<Department> departmentResponse = departmentRepository.findById(id);
         Department department = departmentResponse.get();
         return department;
-        //  return departmentRepository.findAllById(id);
+
     }
 
     public void deleteDepartment(Department department) {

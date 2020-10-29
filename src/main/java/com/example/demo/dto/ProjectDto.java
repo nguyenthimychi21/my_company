@@ -1,27 +1,31 @@
 package com.example.demo.dto;
 
-import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProjectDto {
-    @NotNull
+
     private Long id;
-    @NotEmpty(message = "name must not be empty")
+
+    @NotEmpty
     private String name;
-    @NotEmpty(message = "status must not be empty")
+
+    @NotEmpty
     private String status;
-    @NotEmpty(message = "descriptions must not be empty")
+
+    @NotEmpty
     private String descriptions;
-    @NotEmpty(message = "employeeId must not be empty")
+
+    @NotNull
     private Long employeeId;
 
 

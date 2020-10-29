@@ -12,7 +12,8 @@ import java.io.Serializable;
 public class DomainDto implements Serializable {
 
     private Long id;
-    @NotEmpty(message = "Name must not be empty")
+
+    @NotEmpty
     private String name;
 
 

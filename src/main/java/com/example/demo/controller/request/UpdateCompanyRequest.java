@@ -21,8 +21,10 @@ public class UpdateCompanyRequest {
     private Domain domain;
 
     private Set<Department> departments;
+
     @NotEmpty
     private String url;
+
     @Min(10)
     @NotNull
     private int phone;

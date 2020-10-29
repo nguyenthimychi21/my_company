@@ -17,12 +17,14 @@ import java.util.Set;
 @AllArgsConstructor
 public class CreateDepartmentRequest {
 
-
     private Company company;
+
     @NotEmpty
     private String name;
+
     @NotEmpty
     private String descriptions;
+
     @NotEmpty
     @Email
     private String email;

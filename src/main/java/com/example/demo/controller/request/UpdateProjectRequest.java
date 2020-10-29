@@ -17,10 +17,13 @@ public class UpdateProjectRequest {
 
     @NotEmpty
     private String name;
+
     @NotEmpty
     private String status;
+
     @NotEmpty
     private String descriptions;
+
     private Set<Employee> employees;
 
 

@@ -25,8 +25,11 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     public Company getCompany(Long id) {
+
         Optional<Company> companyResponse = companyRespository.findById(id);
+
         Company company = companyResponse.get();
+
         return company;
         //return companyRespository.findAllById(id);
     }
@@ -51,6 +54,7 @@ public class CompanyServiceImpl implements CompanyService {
         List<Company> companyList = new ArrayList<>();
         Iterable<Company> companies = companyRespository.findByPhoneAndUrl(phone,url);
         companies.forEach(item -> companyList.add(item));
+
         return companyList.stream()
                 .map(this::convertToDto)
                 .collect(Collectors.toList());

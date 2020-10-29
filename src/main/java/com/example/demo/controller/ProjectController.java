@@ -2,6 +2,8 @@ package com.example.demo.controller;
 
 import com.example.demo.controller.request.CreateProjectRequest;
 import com.example.demo.controller.request.UpdateProjectRequest;
+import com.example.demo.controller.untils.ConverterUtils;
+import com.example.demo.dto.ProjectDto;
 import com.example.demo.entity.Employee;
 import com.example.demo.entity.Project;
 import com.example.demo.service.ProjectService;
@@ -20,6 +22,7 @@ import java.util.List;
 public class ProjectController {
     @Autowired
     ProjectService projectService;
+    private ConverterUtils converterUtils;
 
     @PostMapping()//create project request
 
@@ -40,8 +43,8 @@ public class ProjectController {
     @PutMapping(path = "/{id}")//update project by id
 
     public ResponseEntity<String> updateProject(
-            @PathVariable @Min(value = 1, message = "id must be greater than or equal to 1")
-            @Max(value = 1000, message = "id must be lower than or equal to 1000") Long id,
+            @PathVariable @Min(value = 1)
+            @Max(value = 1000) Long id,
             @Validated @RequestBody UpdateProjectRequest projectRequest
 
     ) throws Exception {
@@ -63,8 +66,8 @@ public class ProjectController {
     @DeleteMapping(path = "/{id}")//delete project by id
 
     public ResponseEntity<String> deleteProject(
-            @PathVariable @Min(value = 1, message = "id must be greater than or equal to 1")
-            @Max(value = 1000, message = "id must be lower than or equal to 1000") Long id
+            @PathVariable @Min(value = 1)
+            @Max(value = 1000) Long id
 
     ) throws Exception {
         Project project = projectService.getProject(id);
@@ -78,7 +81,7 @@ public class ProjectController {
     //get all project
     @GetMapping()
 
-    public List<Project> getAllProject(
+    public List<ProjectDto> getAllProject(
 
     ) {
         return projectService.getAllProject();
@@ -89,8 +92,8 @@ public class ProjectController {
     @GetMapping(path = "/{id}")
 
     public Project getProject(
-            @PathVariable @Min(value = 1, message = "id must be greater than or equal to 1")
-            @Max(value = 1000, message = "id must be lower than or equal to 1000") Long id
+            @PathVariable @Min(value = 1)
+            @Max(value = 1000) Long id
     ) {
         return projectService.getProject(id);
 
